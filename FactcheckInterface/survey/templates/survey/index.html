@@ -16,7 +16,7 @@
     <form action="{% url 'survey:making_claim' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-lg btn-primary btn-block">Claim 만들기</button>
-    </form>
+    </form><br>
     <form action="{% url 'survey:making_variation' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-lg btn-primary btn-block">Variation 만들기</button>

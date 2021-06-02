@@ -43,10 +43,11 @@ def making_variation(request):
     evidence3 = data.evidence3
     evidence4 = data.evidence4
     evidence5 = data.evidence5
+    TF = data.T_F
 
     return render(request, 'survey/making_variation.html', {'user_id': number, 'title': title, 'claim': claim,
                                                             'claim_id':claim_id, 'e1':evidence1, 'e2':evidence2,
-                                                            'e3':evidence3, 'e4':evidence4, 'e5':evidence5})
+                                                            'e3':evidence3, 'e4':evidence4, 'e5':evidence5, 'T_F':T_F})
 
 def claim_results(request):
     number = check_user_and_get_number(request)
