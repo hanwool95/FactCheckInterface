@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<script src="{% static 'bootstrap.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'detail.css' %}">
+<div class="container show-grid">
+    <div class = "row">
+        <div class="col-md-8">
+            <div class = "row">
+                <div class="col-md-6">
+                    현재 사용자 user{{ user_id }} <br>
+                </div>
+            </div>
+            <form action="{% url 'survey:claim_results' %}" method="post">
+                {% csrf_token %}
+                    <div class="container show-grid">
+                        <div class = "row">
+                            <div class="col-md-4">
+                                주장
+                                <input type="text" id="claim" name="claim" style="width:1000px;"><br>
+                                표제어
+                                <input type="text" id="title" name="title" style="width:1000px;"><br>
+                                근거1
+                                <input type="text" id="evidence1" name="evidence1" style="width:1000px;"><br>
+                                근거2
+                                <input type="text" id="evidence2" name="evidence2" style="width:1000px;"><br>
+                                근거3
+                                <input type="text" id="evidence3" name="evidence3" style="width:1000px;"><br>
+                                근거4
+                                <input type="text" id="evidence4" name="evidence4" style="width:1000px;"><br>
+                                근거5
+                                <input type="text" id="evidence5" name="evidence5" style="width:1000px;"><br>
+                                <select class="form-control" name="T_F" required>
+                                    <option value="" disabled="disabled" selected="selected">선택해주세요.</option>
+                                    <option value="True">참</option>
+                                    <option value="False">거짓</option>
+                                    <option value="None">판단불가</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                <input type="submit" value="제출" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

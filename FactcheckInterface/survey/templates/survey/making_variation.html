@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<script src="{% static 'bootstrap.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'detail.css' %}">
+<div class="container show-grid">
+    <div class = "row">
+        <div class="col-md-8">
+            <div class = "row">
+                <div class="col-md-6">
+                    현재 사용자 user{{ user_id }} <br>
+                </div>
+            </div>
+            <div class = "row">
+                <div class="col-md-4">
+                    <div class = "card my-5">
+                        id: {{ claim_id }}<br>
+                        표제어: {{ title }}<br>
+                        주장: {{ claim }}<br>
+                    </div>
+                </div>
+            </div>
+            <div class="card my-3">
+                {{ e1 }}<br>
+                {{ e2 }}<br>
+                {{ e3 }}<br>
+                {{ e4 }}<br>
+                {{ e5 }}<br>
+            </div>
+            <form action="{% url 'survey:variation_results' claim_id %}" method="post">
+                {% csrf_token %}
+                    <div class="container show-grid">
+                        <div class = "row">
+                            <div class="col-md-4">
+                                문장1
+                                <input type="text" id="variation1" name="variation1" style="width:300px;"><br>
+                                <select class="form-control" name="T_F1" required>
+                                    <option value="" disabled="disabled" selected="selected">선택해주세요.</option>
+                                    <option value="True">참</option>
+                                    <option value="False">거짓</option>
+                                    <option value="None">판단불가</option>
+                                </select>
+
+                                문장2
+                                <input type="text" id="variation2" name="variation2" style="width:300px;"><br>
+                                <select class="form-control" name="T_F2" required>
+                                    <option value="" disabled="disabled" selected="selected">선택해주세요.</option>
+                                    <option value="True">참</option>
+                                    <option value="False">거짓</option>
+                                    <option value="None">판단불가</option>
+                                </select>
+
+                                문장3
+                                <input type="text" id="variation3" name="variation3" style="width:300px;"><br>
+                                <select class="form-control" name="T_F3" required>
+                                    <option value="" disabled="disabled" selected="selected">선택해주세요.</option>
+                                    <option value="True">참</option>
+                                    <option value="False">거짓</option>
+                                    <option value="None">판단불가</option>
+                                </select>
+
+                                문장4
+                                <input type="text" id="variation4" name="variation4" style="width:300px;"><br>
+                                <select class="form-control" name="T_F4" required>
+                                    <option value="" disabled="disabled" selected="selected">선택해주세요.</option>
+                                    <option value="True">참</option>
+                                    <option value="False">거짓</option>
+                                    <option value="None">판단불가</option>
+                                </select>
+
+                                문장5
+                                <input type="text" id="variation5" name="variation5" style="width:300px;"><br>
+                                <select class="form-control" name="T_F5" required>
+                                    <option value="" disabled="disabled" selected="selected">선택해주세요.</option>
+                                    <option value="True">참</option>
+                                    <option value="False">거짓</option>
+                                    <option value="None">판단불가</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                <input type="submit" value="제출" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

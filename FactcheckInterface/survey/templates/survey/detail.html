@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<script src="{% static 'bootstrap.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'detail.css' %}">
+<div class="container show-grid">
+    <div class = "row">
+        <div class="col-md-8">
+            <div class = "row">
+                <div class="col-md-6">
+                    현재 사용자 user{{ user_id }} <br>
+                    {{ page_num }} / {{ context_num }}
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#help" style="float: right;">도움말</button>
+                </div>
+            </div>
+            <div class = "row">
+                <div class="col-md-4">
+                    <div class = "card my-5">
+                        문단 제목
+                    </div>
+                </div>
+            </div>
+            {% if question_list %}
+            <div class="card my-3">
+                {{ context }}
+            </div>
+            <p></p>
+            <form action="{% url 'survey:results' group_id user_id current_num%}" method="post">
+                {% csrf_token %}
+
+                {% for question in question_list %}
+                    <div class="card my-2">
+                        {{ question.paraphrased}}
+                        <br><br>
+                    </div>
+                    <div class="container show-grid">
+                        <div class = "row">
+                            <div class="col-md-4">
+                                인공지능의 판단
+                            {% if question.bert > 1.0 %}
+                                <img src="{% static 'one.png' %}" alt="My Image" width="200" height="40">
+                            {% elif question.bert > 0.8 %}}
+                                <img src="{% static 'two.png' %}" alt="My Image" width="200" height="40">
+                            {% elif question.bert > 0.6 %}}
+                                <img src="{% static 'three.png' %}" alt="My Image" width="200" height="40">
+                            {% elif question.bert > 0.4 %}}
+                                <img src="{% static 'four.png' %}" alt="My Image" width="200" height="40">
+                            {% else %}}
+                                <img src="{% static 'five.png' %}" alt="My Image" width="200" height="40">
+                            {% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                문장의 종류
+                                <select class="form-control" name="T_F{{forloop.counter}}" required>
+                                    <option value="" disabled="disabled" selected="selected">선택해주세요.</option>
+                                    <option value="True">참</option>
+                                    <option value="False">거짓</option>
+                                    <option value="None">판단불가</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                문법성
+                                <select class="form-control" name="grammer{{forloop.counter}}" required>
+                                    <option value="" disabled="disabled" selected="selected">선택해주세요.</option>
+                                    <option value="1">1(올바르지 않음)</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5(올바름)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+                <input type="submit" value="다음으로" class="btn btn-primary">
+            {% else %}
+                <p>비정상적인 접근입니다.</p>
+                뒤로가기를 눌러주세요~!
+            {% endif %}
+
+            </form>
+
+        </div>
+        <div class = "col-md-4">
+            <br><br>
+            <div class="collapse" id="help" show>
+                <br><br><br><br>
+                <div class="card my-3">
+                    한 번 제출한 문장은 수정할 수 없습니다. 신중하게 작성해주세요.<br>
+                    작업 시작 전 참가자 번호를 입력하고 '시작하기' 버튼을 눌러주세요.<br>
+                    <br><br>
+                    문장의 종류 판단<br>
+                    주어진 문단을 참고하여 문장을 참/거짓/판단 불가 중 하나로 분류해주세요.<br>
+                    반드시 문단 안에 있는 정보로만 판단해주세요.<br>
+                    - 참인 문장: 문단에서 참인 근거를 찾을 수 있는 정보를 포함한 문장<br>
+                    - 거짓인 문장: 문단에서 거짓인 근거를 찾을 수 있는 정보를 포함한 문장<br>
+                    - 판단 불가인 문장: 문단에서 참 혹은 거짓인 근거를 찾을 수 없는 정보를 포함한 문장<br>
+                    문법적으로 올바르지 않더라도, 의미를 이해할 수 있고 문단에서 참 혹은 거짓인 근거를 찾을 수 있다면 판단 불가로 분류하지 마세요.
+                    <br>
+                    문법성 평가<br>
+                    문장의 문법성을 1점에서 5점 사이로 평가해주세요.<br>
+                    (1: 올바르지 않음, 5:올바름)<br>
+                    <br><br>
+                    문단 하나당 반드시 문장 세 개에 대하여 분류 및 평가를 모두 완료한 후 '다음으로' 버튼을 눌러주세요. 버튼을 누르지 않으면 작성한 내용이 저장되지 않습니다.<br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

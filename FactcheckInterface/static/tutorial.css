@@ -1,0 +1,39 @@
+html,
+
+body {
+  overflow: visible;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #f5F5F5;
+}
+
+.card{
+  border-width: 3px;
+  text-align: justify;
+  padding: 10px;
+  height: min-content;
+  border-color: #007bff;
+}
+
+.my-3{
+  margin-top: 0px!important;
+  border-top-left-radius: 0px;
+}
+.my-4{
+  padding-bottom: 3px;
+}
+
+.my-5 {
+  margin-top: 1em!important;
+  margin-bottom: 0px!important;
+  border-bottom-width: 0px!important;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.instruction{
+  text-align: justify;
+  /*padding-top: 0.5em;*/
+  vertical-align: middle;
+  color: red;
+}

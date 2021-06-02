@@ -1,0 +1,23 @@
+body{
+  background-color: #f5F5F5;
+}
+
+.container {
+  width: auto;
+  height: auto;
+  display: -ms-flexbox;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #f5F5F5;
+  border-radius: 5px;
+}
+
+.card{
+  padding: 40px;
+  width: 100%;
+}
+
+
+button{
+  align-items: flex-start;
+}
