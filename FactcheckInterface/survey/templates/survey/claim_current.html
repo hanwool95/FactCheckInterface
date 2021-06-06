@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Title</title>
+</head>
+<body>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'current.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{% static 'current.js' %}"></script>
+<br>
+
+  현재 user{{ user_id }}의 총 claim: {{ number_of_list }}<br><br>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Claim</th>
+        <th>참 거짓</th>
+        <th>날짜</th>
+        <th><center>자세히</center></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for claim in claim_list %}
+      <tr>
+        <td> {{ claim.id }}</td>
+        <td> {{ claim.claim }}</td>
+        <td> {{ claim.T_F }} </td>
+        <td> {{ claim.pub_date }} </td>
+        <td> <form action="{% url 'survey:claim_detail' claim.id %}" method="post">
+        {% csrf_token %}
+          <center>
+        <button type="submit" class="btn btn-primary">선택</button>
+  </form> </center></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <ul class="pagination">
+
+  </ul><br>
+
+  <form action="{% url 'survey:making_claim' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-lg btn-primary">Claim 추가하기</button>
+  </form><br>
+
+</div>
+
+
+</body>
+</html>

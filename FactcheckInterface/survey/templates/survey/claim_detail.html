@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Title</title>
+</head>
+<body>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'current.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<br>
+<br><br>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>분류</th>
+        <th>내용</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> claim id</td>
+        <td> {{ claim.id }} </td>
+      </tr>
+      <tr>
+        <td> claim</td>
+        <td> {{ claim.claim }} </td>
+      </tr>
+      <tr>
+        <td> 참거짓</td>
+        <td> {{ claim.T_F }} </td>
+      </tr>
+      <tr>
+        <td> 최종수정</td>
+        <td> {{ claim.pub_date }} </td>
+      </tr>
+      <tr>
+        <td> 표제어1</td>
+        <td> {{ claim.title1 }} </td>
+      </tr>
+      <tr>
+        <td> 증거1</td>
+        <td> {{ claim.evidence1 }} </td>
+      </tr>
+      <tr>
+        <td> 표제어2</td>
+        <td> {{ claim.title2 }} </td>
+      </tr>
+      <tr>
+        <td> 증거2</td>
+        <td> {{ claim.evidence2 }} </td>
+      </tr>
+      <tr>
+        <td> 표제어3</td>
+        <td> {{ claim.title3 }} </td>
+      </tr>
+      <tr>
+        <td> 증거3</td>
+        <td> {{ claim.evidence3 }} </td>
+      </tr>
+      <tr>
+        <td> 표제어4</td>
+        <td> {{ claim.title4 }} </td>
+      </tr>
+      <tr>
+        <td> 증거4</td>
+        <td> {{ claim.evidence4 }} </td>
+      </tr>
+      <tr>
+        <td> 표제어5</td>
+        <td> {{ claim.title5 }} </td>
+      </tr>
+      <tr>
+        <td> 증거5</td>
+        <td> {{ claim.evidence5 }} </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <form action="{% url 'survey:claim_current' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-lg btn-primary">목록으로</button>
+  </form><br>
+
+</div>
+
+
+</body>
+</html>

@@ -21,6 +21,31 @@ def index(request):
 
     return render(request, 'survey/index.html', {'user_id': number})
 
+def claim_current(request):
+    number = check_user_and_get_number(request)
+    claim_list = C_result.objects.filter(user_id=number)
+    number_of_list = len(claim_list)
+
+    return render(request, 'survey/claim_current.html', {'user_id': number, 'claim_list':claim_list,
+                                                         'number_of_list': number_of_list})
+
+def claim_detail(request, claim_id):
+    number = check_user_and_get_number(request)
+    q = C_result.objects.get(id=claim_id)
+    if int(number) != q.user_id:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
+    return render(request, 'survey/claim_detail.html', {'user_id': number, 'claim': q})
+
+    try:
+        return render(request, 'survey/claim_detail.html', {'user_id': number, 'claim': q})
+    except:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
 def making_claim(request):
     number = check_user_and_get_number(request)
 
@@ -52,10 +77,12 @@ def making_variation(request):
 def claim_results(request):
     number = check_user_and_get_number(request)
     try:
-        C_result(user_id=number, claim=request.POST['claim'], title=request.POST['title'],
-                 evidence1=request.POST['evidence1'],
-                 evidence2=request.POST['evidence2'], evidence3=request.POST['evidence3'],
-                 evidence4=request.POST['evidence4'], evidence5=request.POST['evidence5'],
+        C_result(user_id=number, claim=request.POST['claim'],
+                 title1=request.POST['title1'], evidence1=request.POST['evidence1'],
+                 title2=request.POST['title2'], evidence2=request.POST['evidence2'],
+                 title3=request.POST['title3'], evidence3=request.POST['evidence3'],
+                 title4=request.POST['title4'], evidence4=request.POST['evidence4'],
+                 title5=request.POST['title5'], evidence5=request.POST['evidence5'],
                  T_F=request.POST['T_F'],pub_date=timezone.now(), finish=0).save()
     except:
         print('error')
@@ -63,7 +90,7 @@ def claim_results(request):
             'error_message': "unaccepted.",
         })
 
-    return HttpResponseRedirect(reverse('survey:making_claim'))
+    return HttpResponseRedirect(reverse('survey:claim_current'))
 
 def variation_results(request, claim_id):
     number = check_user_and_get_number(request)
@@ -87,7 +114,7 @@ def variation_results(request, claim_id):
             'error_message': "unaccepted.",
         })
 
-    return HttpResponseRedirect(reverse('survey:making_variation'))
+    return HttpResponseRedirect(reverse('survey:claim_current'))
 """
 def detail(request, group_id, user_id, current_num):
     if user_id != int(check_user_and_get_number(request)) or group_id != int(get_pagenumber_from_userid_n_current(user_id, current_num)):
