@@ -82,10 +82,28 @@
     </tbody>
   </table>
 
+
+<right>
+
+  <form action="{% url 'survey:claim_update' claim.id%}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-lg btn-primary">수정하기</button>
+  </form><br>
+
+  &nbsp;
+
+  <form action="{% url 'survey:claim_delete' claim.id%}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-lg btn-primary">삭제하기</button>
+  </form><br>
+
+  &nbsp;
+
   <form action="{% url 'survey:claim_current' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-lg btn-primary">목록으로</button>
   </form><br>
+</right>
 
 </div>
 

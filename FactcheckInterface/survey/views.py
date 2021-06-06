@@ -37,14 +37,68 @@ def claim_detail(request, claim_id):
             'error_message': "unaccepted.",
         })
 
-    return render(request, 'survey/claim_detail.html', {'user_id': number, 'claim': q})
-
     try:
         return render(request, 'survey/claim_detail.html', {'user_id': number, 'claim': q})
     except:
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
+
+def claim_delete(request, claim_id):
+    number = check_user_and_get_number(request)
+    q = C_result.objects.get(id=claim_id)
+    if int(number) != q.user_id:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
+    C_result.objects.get(id=claim_id).delete()
+
+    return HttpResponseRedirect(reverse('survey:claim_current'))
+
+def claim_update(request, claim_id):
+    number = check_user_and_get_number(request)
+    q = C_result.objects.get(id=claim_id)
+    if int(number) != q.user_id:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
+    return render(request, 'survey/claim_update.html', {'user_id': number, 'claim': q})
+
+    try:
+        return render(request, 'survey/claim_update.html', {'user_id': number, 'claim': q})
+    except:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
+def claim_update_result(request, claim_id):
+    number = check_user_and_get_number(request)
+    q = C_result.objects.get(id=claim_id)
+    if int(number) != q.user_id:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
+
+    q.claim = request.POST['claim']
+    q.title1 = request.POST['title1']
+    q.evidence1 = request.POST['evidence1']
+    q.title2 = request.POST['title2']
+    q.evidence2 = request.POST['evidence2']
+    q.title3 = request.POST['title3']
+    q.evidence3 = request.POST['evidence3']
+    q.title4 = request.POST['title4']
+    q.evidence4 = request.POST['evidence4']
+    q.title5 = request.POST['title5']
+    q.evidence5 = request.POST['evidence5']
+    q.T_F = request.POST['T_F']
+    q.pubdate = timezone.now()
+
+    q.save()
+
+    return HttpResponseRedirect(reverse('survey:claim_detail', args=(claim_id,)))
 
 def making_claim(request):
     number = check_user_and_get_number(request)
