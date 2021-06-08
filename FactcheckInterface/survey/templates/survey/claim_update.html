@@ -7,7 +7,8 @@
 </head>
 <body>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'current.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <br>
@@ -16,6 +17,7 @@
 <form action="{% url 'survey:claim_update_result' claim.id%}" method="post">
                 {% csrf_token %}
 <div class="table-responsive">
+  주장 id: {{ claim.id }}
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
@@ -25,81 +27,81 @@
     </thead>
 
     <tbody>
-
-      <tr>
-        <td> claim id</td>
-        <td> {{ claim.id }} </td>
-      </tr>
       <tr>
         <td> claim</td>
         <td> <input type="text" id="claim" name="claim" style="width:1000px;" value="{{ claim.claim }}">  </td>
       </tr>
-      <tr>
+      <tr style="border:10px">
         <td> 참거짓</td>
         <td>
-          <select class="form-control" name="T_F" required>
-                                    <option value="" disabled="disabled" selected="selected"> 기존: {{ claim.T_F}} </option>
-                                    <option value="True">참</option>
-                                    <option value="False">거짓</option>
-                                    <option value="None">판단불가</option>
+          <select class="form-control" name="T_F">
+                                    {% if claim.T_F == 'True' %}
+                                      <option value="True" selected>참</option>
+                                      <option value="False">거짓</option>
+                                      <option value="None">판단불가</option>
+                                    {% elif claim.T_F == 'False' %}
+                                      <option value="False" selected>거짓</option>
+                                      <option value="True">참</option>
+                                      <option value="None">판단불가</option>
+                                    {% else %}
+                                      <option value="None" selected>판단불가</option>
+                                      <option value="True">참</option>
+                                      <option value="False">거짓</option>
+                                    {% endif %}
           </select>
         </td>
+      </tr>
+      <tr class="success">
+        <td> 표제어1</td>
+        <td> <input type="text" id="title1" name="title1" style="width:1000px;" value="{{ claim.title1 }}"> </td>
+      </tr>
+      <tr class="success">
+        <td> 근거1</td>
+        <td> <input type="text" id="evidence1" name="evidence1" style="width:1000px;" value="{{ claim.evidence1 }}"> </td>
+      </tr>
+      <tr class="warning">
+        <td> 표제어2</td>
+        <td> <input type="text" id="title2" name="title2" style="width:1000px;" value="{{ claim.title2 }}"> </td>
+      </tr>
+      <tr class="warning">
+        <td> 근거2</td>
+        <td> <input type="text" id="evidence2" name="evidence2" style="width:1000px;" value="{{ claim.evidence2 }}"> </td>
+      </tr>
+      <tr class="success">
+        <td> 표제어3</td>
+        <td> <input type="text" id="title3" name="title3" style="width:1000px;" value="{{ claim.title3 }}"> </td>
+      </tr>
+      <tr class="success">
+        <td> 근거3</td>
+        <td> <input type="text" id="evidence3" name="evidence3" style="width:1000px;" value="{{ claim.evidence3 }}"> </td>
+      </tr>
+      <tr class="warning">
+        <td> 표제어4</td>
+        <td> <input type="text" id="title4" name="title4" style="width:1000px;" value="{{ claim.title4 }}"> </td>
+      </tr>
+      <tr class="warning">
+        <td> 근거4</td>
+        <td> <input type="text" id="evidence4" name="evidence4" style="width:1000px;" value="{{ claim.evidence4 }}"> </td>
+      </tr>
+      <tr class="success">
+        <td> 표제어5</td>
+        <td> <input type="text" id="title5" name="title5" style="width:1000px;" value="{{ claim.title5 }}"> </td>
+      </tr>
+      <tr class="success">
+        <td> 근거5</td>
+        <td> <input type="text" id="evidence5" name="evidence5" style="width:1000px;" value="{{ claim.evidence5 }}"> </td>
       </tr>
       <tr>
         <td> 최종수정</td>
         <td> {{ claim.pub_date }} </td>
       </tr>
-      <tr>
-        <td> 표제어1</td>
-        <td> <input type="text" id="title1" name="title1" style="width:1000px;" value="{{ claim.title1 }}"> </td>
-      </tr>
-      <tr>
-        <td> 증거1</td>
-        <td> <input type="text" id="evidence1" name="evidence1" style="width:1000px;" value="{{ claim.evidence1 }}"> </td>
-      </tr>
-      <tr>
-        <td> 표제어2</td>
-        <td> <input type="text" id="title2" name="title2" style="width:1000px;" value="{{ claim.title2 }}"> </td>
-      </tr>
-      <tr>
-        <td> 증거2</td>
-        <td> <input type="text" id="evidence2" name="evidence2" style="width:1000px;" value="{{ claim.evidence2 }}"> </td>
-      </tr>
-      <tr>
-        <td> 표제어3</td>
-        <td> <input type="text" id="title3" name="title3" style="width:1000px;" value="{{ claim.title3 }}"> </td>
-      </tr>
-      <tr>
-        <td> 증거3</td>
-        <td> <input type="text" id="evidence3" name="evidence3" style="width:1000px;" value="{{ claim.evidence3 }}"> </td>
-      </tr>
-      <tr>
-        <td> 표제어4</td>
-        <td> <input type="text" id="title4" name="title4" style="width:1000px;" value="{{ claim.title4 }}"> </td>
-      </tr>
-      <tr>
-        <td> 증거4</td>
-        <td> <input type="text" id="evidence4" name="evidence4" style="width:1000px;" value="{{ claim.evidence4 }}"> </td>
-      </tr>
-      <tr>
-        <td> 표제어5</td>
-        <td> <input type="text" id="title5" name="title5" style="width:1000px;" value="{{ claim.title5 }}"> </td>
-      </tr>
-      <tr>
-        <td> 증거5</td>
-        <td> <input type="text" id="evidence5" name="evidence5" style="width:1000px;" value="{{ claim.evidence5 }}"> </td>
-      </tr>
-
     </tbody>
   </table>
 
 
-<right>
-
   <button type="submit" class="btn btn-lg btn-primary">수정완료</button>
 </form><br>
 
-</right>
 
 </div>
 

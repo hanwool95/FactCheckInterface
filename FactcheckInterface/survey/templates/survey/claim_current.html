@@ -7,7 +7,8 @@
 </head>
 <body>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'current.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="{% static 'current.js' %}"></script>
@@ -31,7 +32,13 @@
       <tr>
         <td> {{ claim.id }}</td>
         <td> {{ claim.claim }}</td>
-        <td> {{ claim.T_F }} </td>
+        <td>  {% if claim.T_F == 'True' %}
+              참
+              {% elif claim.T_F == 'False' %}
+              거짓
+              {% else %}
+              판단불가
+              {% endif %} </td>
         <td> {{ claim.pub_date }} </td>
         <td> <form action="{% url 'survey:claim_detail' claim.id %}" method="post">
         {% csrf_token %}

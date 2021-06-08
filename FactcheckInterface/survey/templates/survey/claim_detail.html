@@ -7,13 +7,15 @@
 </head>
 <body>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'current.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <br>
 <br><br>
 
 <div class="table-responsive">
+  주장 id: {{ claim.id }}
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
@@ -23,62 +25,64 @@
     </thead>
     <tbody>
       <tr>
-        <td> claim id</td>
-        <td> {{ claim.id }} </td>
-      </tr>
-      <tr>
-        <td> claim</td>
+        <td> 주장</td>
         <td> {{ claim.claim }} </td>
       </tr>
       <tr>
-        <td> 참거짓</td>
-        <td> {{ claim.T_F }} </td>
+        <td> 참 거짓</td>
+        <td> {% if claim.T_F == 'True' %}
+              참
+              {% elif claim.T_F == 'False' %}
+              거짓
+              {% else %}
+              판단불가
+              {% endif %}
+        </td>
+      </tr>
+      <tr class="success">
+        <td> 표제어1</td>
+        <td> {{ claim.title1 }} </td>
+      </tr>
+      <tr class="success">
+        <td> 근거1</td>
+        <td> {{ claim.evidence1 }} </td>
+      </tr>
+      <tr class="warning">
+        <td> 표제어2</td>
+        <td> {{ claim.title2 }} </td>
+      </tr>
+      <tr class="warning">
+        <td> 근거2</td>
+        <td> {{ claim.evidence2 }} </td>
+      </tr>
+      <tr class="success">
+        <td> 표제어3</td>
+        <td> {{ claim.title3 }} </td>
+      </tr>
+      <tr class="success">
+        <td> 근거3</td>
+        <td> {{ claim.evidence3 }} </td>
+      </tr>
+      <tr class="warning">
+        <td> 표제어4</td>
+        <td> {{ claim.title4 }} </td>
+      </tr>
+      <tr class="warning">
+        <td> 근거4</td>
+        <td> {{ claim.evidence4 }} </td>
+      </tr>
+      <tr class="success">
+        <td> 표제어5</td>
+        <td> {{ claim.title5 }} </td>
+      </tr>
+      <tr class="success">
+        <td> 근거5</td>
+        <td> {{ claim.evidence5 }} </td>
       </tr>
       <tr>
         <td> 최종수정</td>
         <td> {{ claim.pub_date }} </td>
       </tr>
-      <tr>
-        <td> 표제어1</td>
-        <td> {{ claim.title1 }} </td>
-      </tr>
-      <tr>
-        <td> 증거1</td>
-        <td> {{ claim.evidence1 }} </td>
-      </tr>
-      <tr>
-        <td> 표제어2</td>
-        <td> {{ claim.title2 }} </td>
-      </tr>
-      <tr>
-        <td> 증거2</td>
-        <td> {{ claim.evidence2 }} </td>
-      </tr>
-      <tr>
-        <td> 표제어3</td>
-        <td> {{ claim.title3 }} </td>
-      </tr>
-      <tr>
-        <td> 증거3</td>
-        <td> {{ claim.evidence3 }} </td>
-      </tr>
-      <tr>
-        <td> 표제어4</td>
-        <td> {{ claim.title4 }} </td>
-      </tr>
-      <tr>
-        <td> 증거4</td>
-        <td> {{ claim.evidence4 }} </td>
-      </tr>
-      <tr>
-        <td> 표제어5</td>
-        <td> {{ claim.title5 }} </td>
-      </tr>
-      <tr>
-        <td> 증거5</td>
-        <td> {{ claim.evidence5 }} </td>
-      </tr>
-
     </tbody>
   </table>
 
