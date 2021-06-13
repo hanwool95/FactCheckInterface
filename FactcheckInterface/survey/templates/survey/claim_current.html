@@ -14,7 +14,8 @@
 <script src="{% static 'current.js' %}"></script>
 <br>
 
-  현재 user{{ user_id }}의 총 claim: {{ number_of_list }}<br><br>
+  현재 user{{ user_id }}의 총 claim: {{ number_of_claim }}<br> 총 varaition: {{ number_of_variation }}
+<br>
 
 <div class="table-responsive">
   <table class="table table-bordered table-hover">
@@ -24,6 +25,7 @@
         <th>Claim</th>
         <th>참 거짓</th>
         <th>날짜</th>
+          <th>variation</th>
         <th><center>자세히</center></th>
       </tr>
     </thead>
@@ -40,6 +42,11 @@
               판단불가
               {% endif %} </td>
         <td> {{ claim.pub_date }} </td>
+          <td>  {% if claim.is_variation == 'True' %}
+                예
+              {% else %}
+
+              {% endif %} </td>
         <td> <form action="{% url 'survey:claim_detail' claim.id %}" method="post">
         {% csrf_token %}
           <center>
@@ -56,6 +63,11 @@
   <form action="{% url 'survey:making_claim' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-lg btn-primary">Claim 추가하기</button>
+  </form><br>
+
+  <form action="{% url 'survey:making_variation' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-lg btn-primary">Variation 추가하기</button>
   </form><br>
 
 </div>

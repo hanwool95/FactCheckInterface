@@ -16,11 +16,7 @@
     참가자 번호 <input type="text" name= 'number' value = {{user_id}} readonly required autofocus>
     <form action="{% url 'survey:claim_current' %}" method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-lg btn-primary btn-block">Claim 만들기</button>
+        <button type="submit" class="btn btn-lg btn-primary btn-block">시작하기</button>
     </form><br>
-    <form action="{% url 'survey:making_variation' %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-lg btn-primary btn-block" disabled="disabled">Variation 만들기</button>
-    </form>
 </div>
 </body>

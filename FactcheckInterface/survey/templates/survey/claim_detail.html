@@ -83,6 +83,24 @@
         <td> 최종수정</td>
         <td> {{ claim.pub_date }} </td>
       </tr>
+    <tr>
+        <td> variation</td>
+        <td> {% if claim.is_variation == True %}
+              예
+              {% else %}
+
+              {% endif %}
+        </td>
+      </tr>
+    <tr>
+        <td> original claim id</td>
+        <td> {% if claim.original_claim_id != 0 %}
+              {{ claim.original_claim_id }}
+              {% else %}
+
+              {% endif %}
+        </td>
+      </tr>
     </tbody>
   </table>
 

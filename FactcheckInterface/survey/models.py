@@ -23,6 +23,8 @@ class C_result(models.Model):
     T_F = models.CharField(max_length=200)
     pub_date = models.DateTimeField(default=timezone.now)
     finish = models.IntegerField(default=0)
+    is_variation = models.BooleanField(default=False)
+    original_claim_id = models.IntegerField(default=0)
 
 
 class V_result(models.Model):
