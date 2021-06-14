@@ -18,12 +18,24 @@ def check_user_and_get_number(request):
         number = user_name[4:]
     return number
 
+def check_admin(request):
+    return request.user.get_username()[:5] == 'admin'
+
 def index(request):
     number = check_user_and_get_number(request)
 
     return render(request, 'survey/index.html', {'user_id': number})
 
 def claim_current(request):
+    if check_admin(request):
+        number = '관리자'
+        claim_list = C_result.objects.all()
+        number_of_claim = len(C_result.objects.filter(is_variation=False))
+        number_of_variation = len(C_result.objects.filter(is_variation=True))
+        return render(request, 'survey/admin_current.html', {'user_id': number, 'claim_list': claim_list,
+                                                             'number_of_claim': number_of_claim,
+                                                             'number_of_variation': number_of_variation})
+
     number = check_user_and_get_number(request)
     claim_list = C_result.objects.filter(user_id=number)
     number_of_claim = len(C_result.objects.filter(user_id=number, is_variation=False))
