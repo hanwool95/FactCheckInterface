@@ -73,11 +73,6 @@ def claim_detail(request, claim_id):
     number = check_user_and_get_number(request)
     q = C_result.objects.get(id=claim_id)
 
-    if int(number) != q.user_id and check_admin(request) is not True:
-        return render(request, 'survey/detail.html', {
-            'error_message': "unaccepted.",
-        })
-
     try:
         return render(request, 'survey/claim_detail.html', {'user_id': number, 'claim': q})
     except:
