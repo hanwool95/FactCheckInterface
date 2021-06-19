@@ -121,7 +121,7 @@
 
   &nbsp;
 
-  <form action="{% url 'survey:claim_current' %}" method="post">
+  <form action="{% url 'survey:claim_current' 0 %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-lg btn-primary">목록으로</button>
   </form><br>

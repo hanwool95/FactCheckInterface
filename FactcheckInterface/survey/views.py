@@ -5,11 +5,13 @@ from django.template import loader
 from django.urls import reverse
 from django.utils import timezone
 
-from .models import C_result, V_result
+from .models import C_result, V_result, Reference_article
+
+from .task_explanation import task_explain_list
 
 
 # Create your views here.
-
+# 장고 orm 조건문 출처 https://brownbears.tistory.com/63
 
 def check_user_and_get_number(request):
     user_name = request.user.get_username()
@@ -26,28 +28,51 @@ def index(request):
 
     return render(request, 'survey/index.html', {'user_id': number})
 
-def claim_current(request):
+def claim_current(request, state):
+    """
     if check_admin(request):
         number = '관리자'
         claim_list = C_result.objects.all()
         number_of_claim = len(C_result.objects.filter(is_variation=False))
         number_of_variation = len(C_result.objects.filter(is_variation=True))
-        return render(request, 'survey/admin_current.html', {'user_id': number, 'claim_list': claim_list,
+        return render(request, 'survey/all_current.html', {'user_id': number, 'claim_list': claim_list,
                                                              'number_of_claim': number_of_claim,
                                                              'number_of_variation': number_of_variation})
+    """
 
     number = check_user_and_get_number(request)
-    claim_list = C_result.objects.filter(user_id=number)
+    if state < 1:
+        claim_list = C_result.objects.filter(user_id=number)
+    elif state == 1:
+        claim_list = C_result.objects.filter(user_id=number, is_variation=True)
+    elif state == 2:
+        claim_list = C_result.objects.filter(user_id=number, is_variation=False)
+    elif state == 3:
+        claim_list = C_result.objects.all()
+    elif state == 4:
+        claim_list = C_result.objects.filter(is_variation=True)
+    else:
+        claim_list = C_result.objects.filter(is_variation=False)
     number_of_claim = len(C_result.objects.filter(user_id=number, is_variation=False))
     number_of_variation = len(C_result.objects.filter(user_id=number, is_variation=True))
 
     return render(request, 'survey/claim_current.html', {'user_id': number, 'claim_list':claim_list,
+                                                         'number_of_claim': number_of_claim,
+                                                         'number_of_variation': number_of_variation, 'state':state})
+
+def all_current(request):
+    number = check_user_and_get_number(request)
+    claim_list = C_result.objects.all()
+    number_of_claim = len(C_result.objects.filter(is_variation=False))
+    number_of_variation = len(C_result.objects.filter(is_variation=True))
+    return render(request, 'survey/all_current.html', {'user_id': number, 'claim_list': claim_list,
                                                          'number_of_claim': number_of_claim,
                                                          'number_of_variation': number_of_variation})
 
 def claim_detail(request, claim_id):
     number = check_user_and_get_number(request)
     q = C_result.objects.get(id=claim_id)
+
     if int(number) != q.user_id and check_admin(request) is not True:
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
@@ -70,7 +95,7 @@ def claim_delete(request, claim_id):
 
     C_result.objects.get(id=claim_id).delete()
 
-    return HttpResponseRedirect(reverse('survey:claim_current'))
+    return HttpResponseRedirect(reverse('survey:claim_current', args=(0,)))
 
 def claim_update(request, claim_id):
     number = check_user_and_get_number(request)
@@ -79,9 +104,15 @@ def claim_update(request, claim_id):
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
-
+    data = None
+    original_claim = None
+    if q.reference_id != 0:
+        data = Reference_article.objects.get(reference_id=q.reference_id)
+    if q.original_claim_id != 0:
+        original_claim = C_result.objects.get(id=q.original_claim_id)
     try:
-        return render(request, 'survey/claim_update.html', {'user_id': number, 'claim': q})
+        return render(request, 'survey/claim_update.html', {'user_id': number, 'claim': q, 'data': data,
+                                                            'original_claim': original_claim})
     except:
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
@@ -116,15 +147,18 @@ def claim_update_result(request, claim_id):
 
 def making_claim(request):
     number = check_user_and_get_number(request)
+    reference_list = Reference_article.objects.filter(count__lte=5)
+    data = random.choice(reference_list)
 
-    return render(request, 'survey/making_claim.html', {'user_id': number})
+    return render(request, 'survey/making_claim.html', {'user_id': number, 'data': data})
 
 def making_variation(request):
     number = check_user_and_get_number(request)
+    task_index = random.choice([0, 1, 2, 3, 4])
     try:
-        claim_list = C_result.objects.filter(finish=0)
+        claim_list = C_result.objects.filter(finish__lte=5)
         if len(claim_list) == 0:
-            claim_list = C_result.objects.filter(finish=1)
+            claim_list = C_result.objects.filter(finish=6)
         data = random.choice(claim_list)
     except:
         print('error')
@@ -150,9 +184,10 @@ def making_variation(request):
                                                             'e2':evidence2, 'title2': title2,
                                                             'e3':evidence3, 'title3': title3,
                                                             'e4':evidence4, 'title4': title4,
-                                                            'e5':evidence5, 'title5': title5, 'T_F':T_F})
+                                                            'e5':evidence5, 'title5': title5, 'T_F':T_F,
+                                                            'task':task_index})
 
-def claim_results(request):
+def claim_results(request, reference_id):
     number = check_user_and_get_number(request)
     try:
         C_result(user_id=number, claim=request.POST['claim'],
@@ -161,14 +196,15 @@ def claim_results(request):
                  title3=request.POST['title3'], evidence3=request.POST['evidence3'],
                  title4=request.POST['title4'], evidence4=request.POST['evidence4'],
                  title5=request.POST['title5'], evidence5=request.POST['evidence5'],
-                 T_F=request.POST['T_F'],pub_date=timezone.now(), finish=0, is_variation=False, original_claim_id=0).save()
+                 T_F=request.POST['T_F'],pub_date=timezone.now(), finish=0, is_variation=False, original_claim_id=0,
+                 reference_id=reference_id).save()
     except:
         print('error')
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
 
-    return HttpResponseRedirect(reverse('survey:claim_current'))
+    return HttpResponseRedirect(reverse('survey:claim_current', args=(0,)))
 
 
 
@@ -192,7 +228,7 @@ def variation_results(request, claim_id):
             'error_message': "unaccepted.",
         })
 
-    return HttpResponseRedirect(reverse('survey:claim_current'))
+    return HttpResponseRedirect(reverse('survey:claim_current', args=(0,)))
 """
 def detail(request, group_id, user_id, current_num):
     if user_id != int(check_user_and_get_number(request)) or group_id != int(get_pagenumber_from_userid_n_current(user_id, current_num)):

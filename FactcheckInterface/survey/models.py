@@ -25,6 +25,7 @@ class C_result(models.Model):
     finish = models.IntegerField(default=0)
     is_variation = models.BooleanField(default=False)
     original_claim_id = models.IntegerField(default=0)
+    reference_id = models.IntegerField(default=0)
 
 
 class V_result(models.Model):
@@ -41,4 +42,12 @@ class V_result(models.Model):
     variation5 = models.CharField(max_length=400, default="")
     T_F5 = models.CharField(max_length=200, default="X")
     pub_date = models.DateTimeField(default=timezone.now)
+
+class Reference_article(models.Model):
+    reference_id = models.IntegerField(default=0)
+    rev_id = models.IntegerField(default=0)
+    url = models.CharField(max_length=400, default="")
+    title = models.CharField(max_length=400, default="")
+    text = models.CharField(max_length=2000, default="")
+    count = models.IntegerField(default=0)
 

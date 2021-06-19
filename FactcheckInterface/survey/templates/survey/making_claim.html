@@ -13,12 +13,17 @@
 <div class="container show-grid">
     <div class = "row">
         <div class="col-md-8">
+            <div class="well" style="width:600px;">
+                시작 표제어: {{ data.title }} <br>
+                LINK: {{ data.url }}
+            </div>
+            <br>
             <div class = "row">
                 <div class="col-md-6">
                     현재 사용자 user{{ user_id }} <br>
                 </div>
             </div>
-            <form action="{% url 'survey:claim_results' %}" method="post">
+            <form action="{% url 'survey:claim_results' data.reference_id %}" method="post">
                 {% csrf_token %}
                     <div class="container show-grid">
                         <div class = "row">
@@ -65,6 +70,15 @@
                     </div>
                     <br>
                 <input type="submit" value="제출" class="btn btn-primary">
+            </form>
+            <br>
+            <form action="{% url 'survey:making_claim' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="다른 article로 claim 생성" class="btn btn-primary">
+            </form>
+            <form action="{% url 'survey:claim_current' 0 %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="목록으로" class="btn btn-primary">
             </form>
         </div>
     </div>

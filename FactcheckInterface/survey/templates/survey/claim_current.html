@@ -12,15 +12,62 @@
 <link rel="stylesheet" type="text/css" href="{% static 'current.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="{% static 'current.js' %}"></script>
-<br>
+<div class="container show-grid">
+    <div class = "row">
+        <br>
+         <div class="col-md-4">
+            현재 user{{ user_id }}의 총 claim: {{ number_of_claim }}<br> 총 variation: {{ number_of_variation }}
+         </div>
+        <div class="col-md-4">
+            <div style="display: inline-block">
+                <form action="{% url 'survey:claim_current' 0 %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit"> 내 작업</button>
+                </form>
+            </div>
+            <div style="display: inline-block">
+                <form action="{% url 'survey:claim_current' 3 %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">전체 작업</button>
+                </form>
+            </div>
+            <div style="display: inline-block">
+                {% if state < 3 %}
+                <form action="{% url 'survey:claim_current' 1%}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Variation only</button>
+                </form>
+                {% else %}
+                <form action="{% url 'survey:claim_current' 4%}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Variation only</button>
+                </form>
+                {% endif %}
+            </div>
+            <div style="display: inline-block">
+                {% if state < 3 %}
+                <form action="{% url 'survey:claim_current' 2%}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Claim only</button>
+                </form>
+                {% else %}
+                <form action="{% url 'survey:claim_current' 5%}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Claim only</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 
-  현재 user{{ user_id }}의 총 claim: {{ number_of_claim }}<br> 총 varaition: {{ number_of_variation }}
-<br>
+ <br>
 
 <div class="table-responsive">
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
+          <th> user id </th>
         <th>id</th>
         <th>Claim</th>
         <th>참 거짓</th>
@@ -32,6 +79,7 @@
     <tbody>
     {% for claim in claim_list %}
       <tr>
+          <td> user{{ claim.user_id }}</td>
         <td> {{ claim.id }}</td>
         <td> {{ claim.claim }}</td>
         <td>  {% if claim.T_F == 'True' %}

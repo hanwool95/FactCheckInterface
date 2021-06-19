@@ -12,7 +12,48 @@
 <link rel="stylesheet" type="text/css" href="{% static 'current.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <br>
-<br><br>
+<br>
+{% if data != None %}
+<div class="well" style="width:600px;">
+                시작 표제어: {{ data.title }} <br>
+                LINK: {{ data.url }}
+
+</div>
+{% endif %}
+{% if original_claim != None %}
+<div class = "row">
+                <div class="col-md-4">
+                    <div class = "card my-5">
+                        id: {{ original_claim.id }}<br>
+                        주장: {{ original_claim.claim }}<br>
+                        판단:
+                        {% if original_claim.T_F == "True" %}참
+                        {% elif original_claim.T_F == "False" %}거짓
+                        {% else %}판단불가
+                        {% endif %}
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="card my-3">
+                {% if original_claim.title1 != "" %}
+                    {{ title1 }}: {{ e1 }}<br>
+                {% endif %}
+                {% if original_claim.title2 != "" %}
+                    {{ title2 }}: {{ e2 }}<br>
+                {% endif %}
+                {% if original_claim.title3 != "" %}
+                    {{ title3 }}: {{ e3 }}<br>
+                {% endif %}
+                {% if original_claim.title4 != "" %}
+                    {{ title4 }}: {{ e4 }}<br>
+                {% endif %}
+                {% if original_claim.title5 != "" %}
+                    {{ title5 }}: {{ e5 }}<br>
+                {% endif %}
+            </div>
+{% endif %}
+<br>
 
 <form action="{% url 'survey:claim_update_result' claim.id%}" method="post">
                 {% csrf_token %}
