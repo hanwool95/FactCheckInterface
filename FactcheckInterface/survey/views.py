@@ -58,16 +58,21 @@ def claim_current(request, state):
 
     number_of_user = len(C_result.objects.filter(user_id=number))
 
-    number_of_True = len(C_result.objects.filter(user_id=number, T_F='True'))
-    number_of_False = len(C_result.objects.filter(user_id=number, T_F='False'))
-    number_of_NEI = len(C_result.objects.filter(user_id=number, T_F='None'))
+    if number_of_user != 0:
+        number_of_True = len(C_result.objects.filter(user_id=number, T_F='True'))
+        number_of_False = len(C_result.objects.filter(user_id=number, T_F='False'))
+        number_of_NEI = len(C_result.objects.filter(user_id=number, T_F='None'))
 
-    rate_true = round(number_of_True/number_of_user*100, 2)
-    rate_false = round(number_of_False / number_of_user*100, 2)
-    rate_nei = round(number_of_NEI/number_of_user*100, 2)
+        rate_true = round(number_of_True/number_of_user*100, 2)
+        rate_false = round(number_of_False / number_of_user*100, 2)
+        rate_nei = round(number_of_NEI/number_of_user*100, 2)
 
-    rate_claim = round(number_of_claim/number_of_user*100, 2)
-
+        rate_claim = round(number_of_claim/number_of_user*100, 2)
+    else:
+        rate_true = 0
+        rate_false = 0
+        rate_nei = 0
+        rate_claim = 0
 
 
     return render(request, 'survey/claim_current.html', {'user_id': number, 'claim_list':claim_list,
