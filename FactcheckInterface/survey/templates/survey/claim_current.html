@@ -16,7 +16,9 @@
     <div class = "row">
         <br>
          <div class="col-md-4">
-            현재 user{{ user_id }}의 총 claim: {{ number_of_claim }}<br> 총 variation: {{ number_of_variation }}
+            현재 user{{ user_id }}의 총 claim: {{ number_of_claim }}(claim 비율: {{ rate_claim }}%), variation: {{ number_of_variation }}<br>
+             참 비율: {{rate_true}}%, 거짓 비율: {{ rate_false}}%, NEI 비율: {{ rate_nei }}%
+
          </div>
         <div class="col-md-4">
             <div style="display: inline-block">

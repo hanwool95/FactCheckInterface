@@ -56,9 +56,25 @@ def claim_current(request, state):
     number_of_claim = len(C_result.objects.filter(user_id=number, is_variation=False))
     number_of_variation = len(C_result.objects.filter(user_id=number, is_variation=True))
 
+    number_of_user = len(C_result.objects.filter(user_id=number))
+
+    number_of_True = len(C_result.objects.filter(user_id=number, T_F='True'))
+    number_of_False = len(C_result.objects.filter(user_id=number, T_F='False'))
+    number_of_NEI = len(C_result.objects.filter(user_id=number, T_F='None'))
+
+    rate_true = round(number_of_True/number_of_user*100, 2)
+    rate_false = round(number_of_False / number_of_user*100, 2)
+    rate_nei = round(number_of_NEI/number_of_user*100, 2)
+
+    rate_claim = round(number_of_claim/number_of_user*100, 2)
+
+
+
     return render(request, 'survey/claim_current.html', {'user_id': number, 'claim_list':claim_list,
                                                          'number_of_claim': number_of_claim,
-                                                         'number_of_variation': number_of_variation, 'state':state})
+                                                         'number_of_variation': number_of_variation, 'state':state,
+                                                         'rate_true':rate_true, 'rate_false':rate_false,
+                                                         'rate_nei':rate_nei, 'rate_claim': rate_claim})
 
 def all_current(request):
     number = check_user_and_get_number(request)
