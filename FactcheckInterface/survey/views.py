@@ -74,7 +74,7 @@ def claim_detail(request, claim_id):
     q = C_result.objects.get(id=claim_id)
 
     try:
-        return render(request, 'survey/claim_detail.html', {'user_id': number, 'claim': q})
+        return render(request, 'survey/claim_detail.html', {'user_id': int(number), 'claim': q})
     except:
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
