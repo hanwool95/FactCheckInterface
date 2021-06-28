@@ -112,12 +112,11 @@
         <button type="submit" class="btn btn-lg btn-primary">수정하기</button>
   </form><br>
 
-  &nbsp;
+  &nbsp;<form action="{% url 'survey:claim_delete' claim.id%}" method="post">
+    {% csrf_token %}
+        <button onclick="return confirm('정말 삭제하시겠습니까?')" class="btn btn-lg btn-primary">삭제하기</button>
+</form><br>
 
-  <form action="{% url 'survey:claim_delete' claim.id%}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-lg btn-primary">삭제하기</button>
-  </form><br>
 {% endif %}
   &nbsp;
 
