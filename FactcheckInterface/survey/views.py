@@ -172,7 +172,7 @@ def making_variation(request):
     number = check_user_and_get_number(request)
     task_index = random.choice([0, 1, 2, 3, 4])
     try:
-        claim_list = C_result.objects.filter(finish__lte=5)
+        claim_list = C_result.objects.filter(finish__lte=5, id__gt=136)
         if len(claim_list) == 0:
             claim_list = C_result.objects.filter(finish=6)
         data = random.choice(claim_list)
@@ -205,6 +205,7 @@ def making_variation(request):
 
 def claim_results(request, reference_id):
     number = check_user_and_get_number(request)
+
     try:
         C_result(user_id=number, claim=request.POST['claim'],
                  title1=request.POST['title1'], evidence1=request.POST['evidence1'],
@@ -212,8 +213,11 @@ def claim_results(request, reference_id):
                  title3=request.POST['title3'], evidence3=request.POST['evidence3'],
                  title4=request.POST['title4'], evidence4=request.POST['evidence4'],
                  title5=request.POST['title5'], evidence5=request.POST['evidence5'],
-                 T_F=request.POST['T_F'],pub_date=timezone.now(), finish=0, is_variation=False, original_claim_id=0,
+                 T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=False, original_claim_id=0,
                  reference_id=reference_id).save()
+        q = Reference_article.objects.get(reference_id=reference_id)
+        q.count += 1
+        q.save()
     except:
         print('error')
         return render(request, 'survey/detail.html', {
