@@ -57,7 +57,7 @@
             </div>
             <div class = "row">
                         id: {{ claim_id }}<br>
-                        주장: {{ claim }}<br>
+                        Claim: {{ claim }}<br>
                         판단:
                         {% if T_F == "True" %}참
                         {% elif T_F == "False" %}거짓
@@ -87,7 +87,7 @@
                     <div class="container show-grid">
                         <div class = "row">
                             <div class="col-md-4">
-                                주장 <input type="text" id="claim" name="claim" style="width:1000px;"><br><br>
+                                Claim <input type="text" id="claim" name="claim" style="width:1000px;"><br><br>
                                 참거짓<select class="form-control" name="T_F" required>
                                     <option value="" disabled="disabled" selected="selected">선택해주세요.</option>
                                     <option value="True">참</option>
@@ -95,33 +95,33 @@
                                     <option value="None">판단불가</option>
                                 </select><br><br>
                                 <div class="well" style="width:1100px;">
-                                    표제어1
+                                    문서 제목1
                                     <input type="text" id="title1" name="title1" style="width:1000px;"><br><br>
-                                    근거1&nbsp;&nbsp;&nbsp;
+                                    근거 문장1&nbsp;&nbsp;&nbsp;
                                     <input type="text" id="evidence1" name="evidence1" style="width:1000px;"><br>
                                 </div>
                                 <div class="well" style="width:1100px;">
-                                    표제어2
+                                    문서 제목2
                                     <input type="text" id="title2" name="title2" style="width:1000px;"><br><br>
-                                    근거2&nbsp;&nbsp;&nbsp;
+                                    근거 문장2&nbsp;&nbsp;&nbsp;
                                     <input type="text" id="evidence2" name="evidence2" style="width:1000px;"><br>
                                 </div>
                                 <div class="well" style="width:1100px;">
-                                    표제어3
+                                    문서 제목3
                                     <input type="text" id="title3" name="title3" style="width:1000px;"><br><br>
-                                    근거3&nbsp;&nbsp;&nbsp;
+                                    근거 문장3&nbsp;&nbsp;&nbsp;
                                     <input type="text" id="evidence3" name="evidence3" style="width:1000px;"><br>
                                 </div>
                                 <div class="well" style="width:1100px;">
-                                    표제어4
+                                    문서 제목4
                                     <input type="text" id="title4" name="title4" style="width:1000px;"><br><br>
-                                    근거4&nbsp;&nbsp;&nbsp;
+                                    근거 문장4&nbsp;&nbsp;&nbsp;
                                     <input type="text" id="evidence4" name="evidence4" style="width:1000px;"><br>
                                 </div>
                                 <div class="well" style="width:1100px;">
-                                    표제어5
+                                    문서 제목5
                                     <input type="text" id="title5" name="title5" style="width:1000px;"><br><br>
-                                    근거5&nbsp;&nbsp;&nbsp;
+                                    근거 문장5&nbsp;&nbsp;&nbsp;
                                     <input type="text" id="evidence5" name="evidence5" style="width:1000px;"><br>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
             </form>
             <form action="{% url 'survey:making_variation' %}" method="post">
                 {% csrf_token %}
-                <input type="submit" value="다른 주장 보기" class="btn btn-primary">
+                <input type="submit" value="다른 Claim 보기" class="btn btn-primary">
             </form>
             <form action="{% url 'survey:claim_current' 0 %}" method="post">
                 {% csrf_token %}

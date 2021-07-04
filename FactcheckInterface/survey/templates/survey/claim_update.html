@@ -25,7 +25,7 @@
                 <div class="col-md-4">
                     <div class = "card my-5">
                         id: {{ original_claim.id }}<br>
-                        주장: {{ original_claim.claim }}<br>
+                        Claim: {{ original_claim.claim }}<br>
                         판단:
                         {% if original_claim.T_F == "True" %}참
                         {% elif original_claim.T_F == "False" %}거짓
@@ -58,7 +58,7 @@
 <form action="{% url 'survey:claim_update_result' claim.id%}" method="post">
                 {% csrf_token %}
 <div class="table-responsive">
-  주장 id: {{ claim.id }}
+  Claim id: {{ claim.id }}
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
@@ -93,43 +93,43 @@
         </td>
       </tr>
       <tr class="success">
-        <td> 표제어1</td>
+        <td> 문서 제목1</td>
         <td> <input type="text" id="title1" name="title1" style="width:1000px;" value="{{ claim.title1 }}"> </td>
       </tr>
       <tr class="success">
-        <td> 근거1</td>
+        <td> 근거 문장1</td>
         <td> <input type="text" id="evidence1" name="evidence1" style="width:1000px;" value="{{ claim.evidence1 }}"> </td>
       </tr>
       <tr class="warning">
-        <td> 표제어2</td>
+        <td> 문서 제목2</td>
         <td> <input type="text" id="title2" name="title2" style="width:1000px;" value="{{ claim.title2 }}"> </td>
       </tr>
       <tr class="warning">
-        <td> 근거2</td>
+        <td> 근거 문장2</td>
         <td> <input type="text" id="evidence2" name="evidence2" style="width:1000px;" value="{{ claim.evidence2 }}"> </td>
       </tr>
       <tr class="success">
-        <td> 표제어3</td>
+        <td> 문서 제목3</td>
         <td> <input type="text" id="title3" name="title3" style="width:1000px;" value="{{ claim.title3 }}"> </td>
       </tr>
       <tr class="success">
-        <td> 근거3</td>
+        <td> 근거 문장3</td>
         <td> <input type="text" id="evidence3" name="evidence3" style="width:1000px;" value="{{ claim.evidence3 }}"> </td>
       </tr>
       <tr class="warning">
-        <td> 표제어4</td>
+        <td> 문서 제목4</td>
         <td> <input type="text" id="title4" name="title4" style="width:1000px;" value="{{ claim.title4 }}"> </td>
       </tr>
       <tr class="warning">
-        <td> 근거4</td>
+        <td> 근거 문장4</td>
         <td> <input type="text" id="evidence4" name="evidence4" style="width:1000px;" value="{{ claim.evidence4 }}"> </td>
       </tr>
       <tr class="success">
-        <td> 표제어5</td>
+        <td> 문서 제목5</td>
         <td> <input type="text" id="title5" name="title5" style="width:1000px;" value="{{ claim.title5 }}"> </td>
       </tr>
       <tr class="success">
-        <td> 근거5</td>
+        <td> 근거 문장5</td>
         <td> <input type="text" id="evidence5" name="evidence5" style="width:1000px;" value="{{ claim.evidence5 }}"> </td>
       </tr>
       <tr>

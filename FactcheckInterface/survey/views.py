@@ -163,7 +163,7 @@ def claim_update_result(request, claim_id):
 
 def making_claim(request):
     number = check_user_and_get_number(request)
-    reference_list = Reference_article.objects.filter(count__lte=5)
+    reference_list = Reference_article.objects.filter(count__lte=1000)
     data = random.choice(reference_list)
 
     return render(request, 'survey/making_claim.html', {'user_id': number, 'data': data})
