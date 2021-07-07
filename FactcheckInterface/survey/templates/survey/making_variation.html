@@ -17,37 +17,135 @@
                  {% if task == 0 %}
                     <b>Task 유형 1.</b> 문장 구조 바꾸기: 의미가 같지만 다른 구조의 문장으로 변형하기<br>
                     원본 문장과 변형된 문장이 서로 동일한 의미를 지녀야 한다. 표제어는 그대로 사용한다.<br>
-                    예시)<br>
-                    대한민국에서 재배한 담배는 모두 한국담배인삼공사가 구매한다.<br>
-                        =>	한국담배인삼공사는 우리 나라에서 재배한 모든 담배를 사들인다.<br>
+
+                 <button data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">예시</button><br>
+                 <div class="collapse" id="collapseExample1">
+                     <div class = 'well'>
+                         원본)<br>
+                            Claim: KT&G는 세계 제1위의 담배회사인 브리티쉬 아메리칸 토바코보다 국내 담배 시장
+                            점유율이 높다.<br>
+                            판단: 참<br><br>
+
+                            KT&G: KT&G는 국내에서 국내 담배 점유율은 약 60%을 차지하고 있다.<br>
+                            브리티쉬 아메리칸 토바코: 브리티쉬 아메리칸 토바코(British American Tobacco Plc, (런던: BATS, amex: BTI, KLSE: BAT, 흔히 줄여서 BAT)은 런던에 본사를 둔 세계 제1위의 담배회사이다.
+                     </div>
+                     <div class = 'well'>
+                         변형)<br>
+                        Claim: 국내 담배 시장에서 KT&G의 판매량이 세계 제1위의 담배회사인 브리티쉬
+                        아메리칸 토바코의 판매량보다 더 많다.<br>
+                         판단: 참<br><br>
+
+                        KT&G: KT&G는 국내에서 국내 담배 점유율은 약 60%을 차지하고 있다.<br>
+                        브리티쉬 아메리칸 토바코: 브리티쉬 아메리칸 토바코(British American Tobacco Plc, (런던: BATS, amex: BTI, KLSE: BAT, 흔히 줄여서 BAT)은 런던에 본사를 둔 세계 제1위의 담배회사이다.<br>
+                        시장 점유율: 시장 점유율(市場占有率)은 경쟁 시장에서 어떠한 상품의 총 판매량 가운데 한 기업의 상품이 차지하는 비율을 말한다.<br>
+                        (문장 구조 변형 및 단순 동의어 사용이 아니라 시장 점유율을 풀어 썼으므로 해당 내역을 근거 문장으로 추가하여야 한다.)
+                     </div>
+                 </div>
                  {% elif task == 1 %}
                     	<b>Task 유형 2.</b> 부정문으로 만들기: 해당 클레임과 반대 의미의 문장 만들기<br>
-                        단순히 ‘~하지 않는다’로 변형하는 것이 아니라, 해당 문장이 참일 때 거짓일 문장을 만드는 것을 권장한다. 단어 자체를 바꾸거나, 수량을 바꾸는 것을 통해 부정문으로 만들 수 있다. 표제어는 그대로 사용한다.
-                        <br>예시)<br>
-                        대한민국에서 재배한 담배는 모두 한국담배인삼공사가 구매한다.<br>
-                            =>	(수량 변경)대한민국에서 재배한 담배의 약 80%만 한국담배인삼공사가 구매한다.<br>
-                            =>	(단어 변경)대한민국에서 재배한 담배는 모두 한국담배인삼공사가 재배한다.<br>
+                        단순히 ‘~하지 않는다’로 변형하는 것이 아니라, 해당 문장이 참일 때 거짓일 문장을 만드는 것을 권장한다. 단어 자체를 바꾸거나, 수량을 바꾸는 것을 통해 부정문으로 만들 수 있다. 표제어는 그대로 사용한다.<br>
+                        <button data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">예시</button><br>
+                 <div class="collapse" id="collapseExample2">
+                     <div class = 'well'>
+                         원본)<br>
+                            Claim: KT&G는 세계 제1위의 담배회사인 브리티쉬 아메리칸 토바코보다 국내 담배 시장
+                            점유율이 높다.<br>
+                            판단: 참<br><br>
+
+                            KT&G: KT&G는 국내에서 국내 담배 점유율은 약 60%을 차지하고 있다.<br>
+                            브리티쉬 아메리칸 토바코: 브리티쉬 아메리칸 토바코(British American Tobacco Plc, (런던: BATS, amex: BTI, KLSE: BAT, 흔히 줄여서 BAT)은 런던에 본사를 둔 세계 제1위의 담배회사이다.
+                     </div>
+                     <div class = 'well'>
+                         변형)<br>
+                        Claim: 국내 담배 시장에서 KT&G의 판매량은 세계 제1위의 담배회사인 브리티쉬
+아메리칸 토바코보다 뒤쳐진다.<br>
+                         판단: 거짓<br><br>
+
+                        KT&G: KT&G는 국내에서 국내 담배 점유율은 약 60%을 차지하고 있다.<br>
+                        브리티쉬 아메리칸 토바코: 브리티쉬 아메리칸 토바코(British American Tobacco Plc, (런던: BATS, amex: BTI, KLSE: BAT, 흔히 줄여서 BAT)은 런던에 본사를 둔 세계 제1위의 담배회사이다.<br>
+                        시장 점유율: 시장 점유율(市場占有率)은 경쟁 시장에서 어떠한 상품의 총 판매량 가운데 한 기업의 상품이 차지하는 비율을 말한다.<br>
+                        (단순 동의어 사용이 아니라 시장 점유율을 풀어 썼으므로 해당 내역을 근거 문장으로 추가하여야 한다.)
+                     </div>
+                 </div>
                  {% elif task == 2 %}
                         <b>Task 유형 3.</b> 문장의 일부를 다른 것으로 대체하기<br>
-                        클레임의 표제어는 유지한 채 동사나 목적어를 변형한다. 같은 종류의 단어(나라 이름, 식물 종류 등)와 다른 종류의 단어를 모두 대체어로 사용할 수 있다. 만들어진 문장과 원본 문장은 관련성이 없어야 한다.
-                        <br>예시)<br>
-                        대한민국에서 재배한 담배는 모두 한국담배인삼공사가 구매한다.<br>
-                            =>	(목적어 변형: 같은 종류의 단어, 작물)대한민국에서 재배한 인삼은 모두 한국담배인삼공사가 구매한다.<br>
-                            =>	(동사 변형)대한민국에서 재배한 담배는 모두 한국담배인삼공사가 판매한다.<br>
-                            =>	(다른 종류의 단어)대한민국의 담배 생산 공장은 모두 한국담배인삼공사 소유이다.<br>
+                        클레임의 표제어는 유지한 채 동사나 목적어를 변형한다. 같은 종류의 단어(나라 이름, 식물 종류 등)와 다른 종류의 단어를 모두 대체어로 사용할 수 있다. 만들어진 문장과 원본 문장은 관련성이 없어야 한다.<br>
+                        <button data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">예시</button><br>
+                 <div class="collapse" id="collapseExample3">
+                     <div class = 'well'>
+                         원본)<br>
+                            Claim: KT&G는 세계 제1위의 담배회사인 브리티쉬 아메리칸 토바코보다 국내 담배 시장
+                            점유율이 높다.<br>
+                            판단: 참<br><br>
+
+                            KT&G: KT&G는 국내에서 국내 담배 점유율은 약 60%을 차지하고 있다.<br>
+                            브리티쉬 아메리칸 토바코: 브리티쉬 아메리칸 토바코(British American Tobacco Plc, (런던: BATS, amex: BTI, KLSE: BAT, 흔히 줄여서 BAT)은 런던에 본사를 둔 세계 제1위의 담배회사이다.
+                     </div>
+                     <div class = 'well'>
+                         변형)<br>
+                        Claim: KT&G는 세계 제1위의 담배회사인 브리티쉬 아메리칸 토바코보다 국내 담배 시장
+순이익이 많다.<br>
+                         판단: 판단불가<br>
+                         (해당 근거를 찾을 수 없음)
+                         <br><br>
+                         ---
+                         <br><br>
+                        변형)<br>
+                        Claim: KT&G는 담배회사 필립 모리스 인터내셔널보다 국내 담배 시장 점유율이 높다.<br>
+                         판단: 참<br>
+
+                        KT&G: KT&G는 국내에서 국내 담배 점유율은 약 60%을 차지하고 있다.<br>
+                        필립 모리스 인터내셔널: 필립 모리스 인터내셔널(Philip Morris International Inc., PMI)은 스위스 로잔 시에 본부를 둔 담배 회사이다.
+                     </div>
+                 </div>
                  {% elif task == 3 %}
                     <b>Task 유형 4.</b> 기존의 문장보다 더 구체적인 수준의 문장 만들기<br>
-                    기존 문장의 단어가 새로 만들어진 문장의 단어를 포함해야 한다. 따라서 한 문장이 다른 문장의 의미를 내포해야 한다. 문장의 구조는 바꾸지 않으며 표제어는 그대로 사용한다.
-                    <br>예시)<br>
-                    대한민국에서 재배한 담배는 모두 한국담배인삼공사가 구매한다.<br>
-                        =>	(충청도 ∈ 대한민국)충청도에서 재배한 담배는 모두 한국담배인삼공사가 구매한다.<br>
+                    기존 문장의 단어가 새로 만들어진 문장의 단어를 포함해야 한다. 따라서 한 문장이 다른 문장의 의미를 내포해야 한다. 문장의 구조는 바꾸지 않으며 표제어는 그대로 사용한다.<br>
+                    <button data-toggle="collapse" href="#collapseExample4" aria-expanded="false" aria-controls="collapseExample">예시</button><br>
+                 <div class="collapse" id="collapseExample4">
+                     <div class = 'well'>
+                         원본)<br>
+                            Claim: KT&G는 세계 제1위의 담배회사인 브리티쉬 아메리칸 토바코보다 국내 담배 시장
+                            점유율이 높다.<br>
+                            판단: 참<br><br>
+
+                            KT&G: KT&G는 국내에서 국내 담배 점유율은 약 60%을 차지하고 있다.<br>
+                            브리티쉬 아메리칸 토바코: 브리티쉬 아메리칸 토바코(British American Tobacco Plc, (런던: BATS, amex: BTI, KLSE: BAT, 흔히 줄여서 BAT)은 런던에 본사를 둔 세계 제1위의 담배회사이다.
+                     </div>
+                     <div class = 'well'>
+                         변형)<br>
+                        Claim: KT&G는 세계 제1위의 담배회사인 브리티쉬 아메리칸 토바코보다 국내 전자 담배
+시장 점유율이 높다.<br>
+                         판단: 판단불가<br><br>
+                         (전자 담배 ∈ 담배)<br>
+                        (해당 근거를 찾을 수 없음)
+
+                     </div>
+                 </div>
                  {% else %}
                     <b>Task 유형 5.</b> 기존의 문장보다 더 일반적인 수준의 문장 만들기<br>
-                    새로 만들어진 문장의 단어가 기존 문장의 단어를 포함해야 한다. 따라서 한 문장이 다른 문장의 의미를 내포해야 한다. 문장의 구조는 바꾸지 않으며 표제어는 그대로 사용한다.
-                    <br>예시)<br>
-                    대한민국에서 재배한 담배는 모두 한국담배인삼공사가 구매한다.<br>
-                        =>	(대한민국 ∈ 아시아)아시아에서 재배한 담배는 모두 한국담배인삼공사가 구매한다.<br>
-                        =>	(담배 ∈ 작물)대한민국에서 재배한 작물은 모두 한국담배인삼공사가 구매한다.<br>
+                    새로 만들어진 문장의 단어가 기존 문장의 단어를 포함해야 한다. 따라서 한 문장이 다른 문장의 의미를 내포해야 한다. 문장의 구조는 바꾸지 않으며 표제어는 그대로 사용한다.<br>
+                    <button data-toggle="collapse" href="#collapseExample5" aria-expanded="false" aria-controls="collapseExample">예시</button><br>
+                 <div class="collapse" id="collapseExample5">
+                     <div class = 'well'>
+                         원본)<br>
+                            Claim: KT&G는 세계 제1위의 담배회사인 브리티쉬 아메리칸 토바코보다 국내 담배 시장
+                            점유율이 높다.<br>
+                            판단: 참<br><br>
+
+                            KT&G: KT&G는 국내에서 국내 담배 점유율은 약 60%을 차지하고 있다.<br>
+                            브리티쉬 아메리칸 토바코: 브리티쉬 아메리칸 토바코(British American Tobacco Plc, (런던: BATS, amex: BTI, KLSE: BAT, 흔히 줄여서 BAT)은 런던에 본사를 둔 세계 제1위의 담배회사이다.
+                     </div>
+                     <div class = 'well'>
+                         변형)<br>
+                        Claim: KT&G는 세계 제1위의 담배회사인 브리티쉬 아메리칸 토바코보다
+북아메리카 담배 시장 점유율이 높다.<br>
+                         판단: 판단불가<br><br>
+
+                        (미국 ∈ 북아메리카)<br>
+                        (해당 근거를 찾을 수 없음)
+                     </div>
+                 </div>
                  {% endif %}
             </div>
             <div class = "row">
