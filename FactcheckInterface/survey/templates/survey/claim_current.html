@@ -109,6 +109,30 @@
   <ul class="pagination">
 
   </ul><br>
+    <center>
+        <!-- 검색기능 출처: https://wikidocs.net/71806 -->
+    <div>
+        <div class="input-group-append">
+            <select name="kinds" id="kinds">
+              <option value="user_id">user_id</option>
+              <option value="claim_id">claim_id</option>
+            </select>
+            <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}" style="width:200px;">
+            <button class="btn btn-outline-secondary" type="button" id="btn_search">검색</button>
+        </div>
+    </div>
+    </center>
+    {% if state == 1 or state == 4 %}
+        <form id="searchForm" method="get" action="{% url 'survey:claim_current' 4 %}" style="width:10px;float:left;">
+    {% elif state == 2 or state == 5 %}
+        <form id="searchForm" method="get" action="{% url 'survey:claim_current' 5 %}" style="width:10px;float:left;">
+    {% else %}
+        <form id="searchForm" method="get" action="{% url 'survey:claim_current' 3 %}" style="width:10px;float:left;">
+    {% endif %}
+        <input type="hidden" id="kinds_target" name="kinds" value="{{ kinds|default_if_none:'' }}">
+        <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+    </form>
+    <br>
 
   <form action="{% url 'survey:making_claim' %}" method="post">
         {% csrf_token %}

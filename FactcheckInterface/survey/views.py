@@ -39,6 +39,13 @@ def claim_current(request, state):
                                                              'number_of_claim': number_of_claim,
                                                              'number_of_variation': number_of_variation})
     """
+    kw = request.GET.get('kw', '')
+    kinds = request.GET.get('kinds', '')
+    if kw:
+        try:
+            kw_number = int(''.join(list(filter(str.isdigit, kw))))
+        except:
+            kw_number = 0
 
     number = check_user_and_get_number(request)
     if state < 1:
@@ -48,11 +55,44 @@ def claim_current(request, state):
     elif state == 2:
         claim_list = C_result.objects.filter(user_id=number, is_variation=False)
     elif state == 3:
-        claim_list = C_result.objects.all()
+        if kw:
+            try:
+                if kinds == 'user_id':
+                    claim_list = C_result.objects.filter(user_id=kw_number)
+                else:
+                    claim_list = C_result.objects.filter(id=kw_number)
+            except:
+                return render(request, 'survey/detail.html', {
+                    'error_message': "unaccepted.",
+                })
+        else:
+            claim_list = C_result.objects.all()
     elif state == 4:
-        claim_list = C_result.objects.filter(is_variation=True)
+        if kw:
+            try:
+                if kinds == 'user_id':
+                    claim_list = C_result.objects.filter(user_id=kw_number, is_variation=True)
+                else:
+                    claim_list = C_result.objects.filter(id=kw_number, is_variation=True)
+            except:
+                return render(request, 'survey/detail.html', {
+                    'error_message': "unaccepted.",
+                })
+        else:
+            claim_list = C_result.objects.filter(is_variation=True)
     else:
-        claim_list = C_result.objects.filter(is_variation=False)
+        if kw:
+            try:
+                if kinds == 'user_id':
+                    claim_list = C_result.objects.filter(user_id=kw_number, is_variation=False)
+                else:
+                    claim_list = C_result.objects.filter(id=kw_number, is_variation=False)
+            except:
+                return render(request, 'survey/detail.html', {
+                    'error_message': "unaccepted.",
+                })
+        else:
+            claim_list = C_result.objects.filter(is_variation=False)
     number_of_claim = len(C_result.objects.filter(user_id=number, is_variation=False))
     number_of_variation = len(C_result.objects.filter(user_id=number, is_variation=True))
 

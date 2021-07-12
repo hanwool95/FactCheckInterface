@@ -4,6 +4,16 @@ var global_state = 0;
 var req_num_row=10;
 var count = 0;
 
+// 검색기능 https://wikidocs.net/71806
+$(document).ready(function(){
+
+    $("#btn_search").on('click', function() {
+        $("#kw").val($(".kw").val());
+        $("#kinds_target").val($("#kinds").val());
+        $("#searchForm").submit();
+    });
+});
+
 
 function make_peg(num_pages){
     // 이전 단추가 첫 페이지에서 생성 안되게 만듦.
