@@ -9,10 +9,11 @@
 {% load static %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'detail.css' %}">
+<script src="{% static 'variation.js' %}"></script>
 <div class="container show-grid">
     <div class = "row">
-        <div class="col-md-8">
              <div class="well" style="width:1200px;">
                  {% if task == 0 %}
                     <b>Task 유형 1.</b> 문장 구조 바꾸기: 의미가 같지만 다른 구조의 문장으로 변형하기<br>
@@ -153,32 +154,147 @@
                     현재 사용자 user{{ user_id }} <br>
                 </div>
             </div>
-            <div class = "row">
-                        id: {{ claim_id }}<br>
-                        Claim: {{ claim }}<br>
-                        판단:
-                        {% if T_F == "True" %}참
-                        {% elif T_F == "False" %}거짓
-                        {% else %}판단불가
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" width="100%">
+                    <thead>
+                      <tr>
+                        <th>분류</th>
+                        <th>내용</th>
+                          <th width="10%"><center>아래에 채우기</center></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> Claim id</td>
+                            <td> {{ claim_id }} </td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td> Claim </td>
+                            <td id="claim_value"> {{ claim }} </td>
+                            <td>
+                                <center>
+                                    <button id="button_claim" onclick="changeValue('claim', '#button_claim')">클릭</button>
+                                </center>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> 참 거짓 </td>
+                            <td>
+                                {% if T_F == "True" %}참
+                                {% elif T_F == "False" %}거짓
+                                {% else %}판단불가
+                                {% endif %}
+                            </td>
+                            <td></td>
+                        </tr>
+                        {% if title1 != "" %}
+                        <tr class="success">
+                            <td> 문서 제목 1 </td>
+                            <td>
+                                {{ title1 }}
+                            </td>
+                            <td>
+                            <center>
+                                    <button id="button_title1" onclick="changeValue('title1', '#button_title1')">클릭</button>
+                                </center>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td> 근거 문장 1 </td>
+                            <td>
+                                {{ e1 }}
+                            </td>
+                            <td>
+                            <center>
+                                    <button id="button_evidence1" onclick="changeValue('evidence1', '#button_evidence1')">클릭</button>
+                                </center>
+                            </td>
+                        </tr>
                         {% endif %}
-                        <br>
-            </div>
-            <div class="card my-3">
-                {% if title1 != "" %}
-                    {{ title1 }}: {{ e1 }}<br>
-                {% endif %}
-                {% if title2 != "" %}
-                    {{ title2 }}: {{ e2 }}<br>
-                {% endif %}
-                {% if title3 != "" %}
-                    {{ title3 }}: {{ e3 }}<br>
-                {% endif %}
-                {% if title4 != "" %}
-                    {{ title4 }}: {{ e4 }}<br>
-                {% endif %}
-                {% if title5 != "" %}
-                    {{ title5 }}: {{ e5 }}<br>
-                {% endif %}
+                        {% if title2 != "" %}
+                        <tr class="warning">
+                            <td> 문서 제목 2 </td>
+                            <td>
+                                {{ title2 }}
+                            </td>
+                            <td><center>
+                                    <button id="button_title2" onclick="changeValue('title2', '#button_title2')">클릭</button>
+                                </center></td>
+                        </tr>
+                        <tr class="warning">
+                            <td> 근거 문장 2 </td>
+                            <td>
+                                {{ e2 }}
+                            </td>
+                            <td><center>
+                                    <button id="button_evidence2" onclick="changeValue('evidence2', '#button_evidence2')">클릭</button>
+                                </center></td>
+                        </tr>
+                        {% endif %}
+                    {% if title3 != "" %}
+                        <tr class="success">
+                            <td> 문서 제목 3 </td>
+                            <td>
+                                {{ title3 }}
+                            </td>
+                            <td><center>
+                                    <button id="button_title3" onclick="changeValue('title3', '#button_title3')">클릭</button>
+                                </center></td>
+                        </tr>
+                        <tr class="success">
+                            <td> 근거 문장 3 </td>
+                            <td>
+                                {{ e3 }}
+                            </td>
+                            <td><center>
+                                    <button id="button_evidence3" onclick="changeValue('evidence3', '#button_evidence3')">클릭</button>
+                                </center></td>
+                        </tr>
+                        {% endif %}
+                    {% if title4 != "" %}
+                        <tr class="warning">
+                            <td> 문서 제목 4 </td>
+                            <td>
+                                {{ title4 }}
+                            </td>
+                            <td><center>
+                                    <button id="button_title4" onclick="changeValue('title4', '#button_title4')">클릭</button>
+                                </center></td>
+                        </tr>
+                        <tr class="warning">
+                            <td> 근거 문장 4 </td>
+                            <td>
+                                {{ e4 }}
+                            </td>
+                            <td><center>
+                                    <button id="button_evidence4" onclick="changeValue('evidence4', '#button_evidence4')">클릭</button>
+                                </center></td>
+                        </tr>
+                        {% endif %}
+                    {% if title5 != "" %}
+                        <tr class="success">
+                            <td> 문서 제목 5 </td>
+                            <td>
+                                {{ title5 }}
+                            </td>
+                            <td><center>
+                                    <button id="button_title5" onclick="changeValue('title5', '#button_title5')">클릭</button>
+                                </center></td>
+                        </tr>
+                        <tr class="success">
+                            <td> 근거 문장 5 </td>
+                            <td>
+                                {{ e5 }}
+                            </td>
+                            <td><center>
+                                    <button id="button_evidence5" onclick="changeValue('evidence5', '#button_evidence5')">클릭</button>
+                                </center></td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
             </div>
             <form action="{% url 'survey:variation_results' claim_id %}" method="post">
                 {% csrf_token %}
@@ -236,7 +352,6 @@
                 {% csrf_token %}
                 <input type="submit" value="목록으로" class="btn btn-primary">
             </form>
-        </div>
     </div>
 </div>
 </body>

@@ -133,5 +133,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # 로그인 성공후 이동하는 URL
-LOGIN_REDIRECT_URL = '/survey'
+LOGIN_REDIRECT_URL = '/survey/claim_current/0'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
