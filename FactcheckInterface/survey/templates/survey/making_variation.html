@@ -189,6 +189,15 @@
                             </td>
                             <td></td>
                         </tr>
+                        <tr>
+                            <td> 두 개 이상 문장</td>
+                            <td>
+                                {% if more_than_two == True %}두 개 이상의 문장으로 claim 만들기
+                                {% elif more_than_two == False %}하나의 문장으로 claim 만들기
+                                {% endif %}
+                            </td>
+                            <td></td>
+                        </tr>
                         {% if title1 != "" %}
                         <tr class="success">
                             <td> 문서 제목 1 </td>
@@ -307,7 +316,13 @@
                                     <option value="True">참</option>
                                     <option value="False">거짓</option>
                                     <option value="None">판단불가</option>
-                                </select><br><br>
+                                </select><br>
+                                <div>
+                                      <input type="radio" id="not_two" name="more_than_two" value="False" required>
+                                      <label for="not_two">하나의 문장으로 claim 만들기</label><br>
+                                      <input type="radio" id="more_two" name="more_than_two" value="True">
+                                      <label for="more_two">두 개 이상의 문장으로 claim 만들기</label>
+                                    </div><br><br>
                                 <div class="well" style="width:1100px;">
                                     문서 제목1
                                     <input type="text" id="title1" name="title1" style="width:1000px;"><br><br>

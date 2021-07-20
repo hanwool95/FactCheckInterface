@@ -39,6 +39,15 @@
               {% endif %}
         </td>
       </tr>
+      <tr>
+                            <td> 두 개 이상 문장</td>
+                            <td>
+                                {% if claim.is_more_than_two == True %}두 개 이상의 문장으로 claim 만들기
+                                {% elif claim.is_more_than_two == False %}하나의 문장으로 claim 만들기
+                                {% endif %}
+                            </td>
+                            <td></td>
+                        </tr>
       <tr class="success">
         <td> 문서 제목1</td>
         <td> {{ claim.title1 }} </td>

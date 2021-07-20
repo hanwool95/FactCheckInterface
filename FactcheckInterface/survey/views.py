@@ -23,6 +23,14 @@ def check_user_and_get_number(request):
 def check_admin(request):
     return request.user.get_username()[:5] == 'admin'
 
+def True_False_text_to_Boolean(text):
+    Boolean = None
+    if text == "True":
+        Boolean = True
+    else:
+        Boolean = False
+    return Boolean
+
 def index(request):
     number = check_user_and_get_number(request)
 
@@ -196,6 +204,7 @@ def claim_update_result(request, claim_id):
     q.evidence5 = request.POST['evidence5']
     q.T_F = request.POST['T_F']
     q.pubdate = timezone.now()
+    q.is_more_than_two = True_False_text_to_Boolean(request.POST['more_than_two'])
 
     q.save()
 
@@ -234,6 +243,7 @@ def making_variation(request):
     title5 = data.title5
     evidence5 = data.evidence5
     T_F = data.T_F
+    more_than_two = data.is_more_than_two
 
     return render(request, 'survey/making_variation.html', {'user_id': number, 'claim': claim,
                                                             'claim_id':claim_id, 'e1':evidence1, 'title1': title1,
@@ -241,12 +251,13 @@ def making_variation(request):
                                                             'e3':evidence3, 'title3': title3,
                                                             'e4':evidence4, 'title4': title4,
                                                             'e5':evidence5, 'title5': title5, 'T_F':T_F,
-                                                            'task':task_index})
+                                                            'task':task_index, 'more_than_two':more_than_two})
 
 def claim_results(request, reference_id):
     number = check_user_and_get_number(request)
 
     try:
+
         C_result(user_id=number, claim=request.POST['claim'],
                  title1=request.POST['title1'], evidence1=request.POST['evidence1'],
                  title2=request.POST['title2'], evidence2=request.POST['evidence2'],
@@ -254,7 +265,8 @@ def claim_results(request, reference_id):
                  title4=request.POST['title4'], evidence4=request.POST['evidence4'],
                  title5=request.POST['title5'], evidence5=request.POST['evidence5'],
                  T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=False, original_claim_id=0,
-                 reference_id=reference_id).save()
+                 reference_id=reference_id,
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
         q = Reference_article.objects.get(reference_id=reference_id)
         q.count += 1
         q.save()
@@ -278,7 +290,8 @@ def variation_results(request, claim_id):
                  title4=request.POST['title4'], evidence4=request.POST['evidence4'],
                  title5=request.POST['title5'], evidence5=request.POST['evidence5'],
                  T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
-                 original_claim_id=claim_id).save()
+                 original_claim_id=claim_id,
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
         q = C_result.objects.get(id=claim_id)
         q.finish += 1
         q.save()

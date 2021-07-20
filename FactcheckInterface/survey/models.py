@@ -26,6 +26,7 @@ class C_result(models.Model):
     is_variation = models.BooleanField(default=False)
     original_claim_id = models.IntegerField(default=0)
     reference_id = models.IntegerField(default=0)
+    is_more_than_two = models.BooleanField(default=False)
 
 
 class V_result(models.Model):
