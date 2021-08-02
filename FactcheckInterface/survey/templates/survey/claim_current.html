@@ -60,6 +60,20 @@
                 {% endif %}
             </div>
         </div>
+        <div class="col-md-4">
+                <div style="display: inline-block">
+                    <form action="{% url 'survey:making_claim' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" >Claim 추가하기</button>
+                    </form>
+                </div>
+                <div style="display: inline-block">
+                    <form action="{% url 'survey:making_variation' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" >Variation 추가하기</button>
+                    </form>
+                </div>
+        </div>
     </div>
 </div>
 
