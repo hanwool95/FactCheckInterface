@@ -221,7 +221,7 @@ def making_variation(request):
     number = check_user_and_get_number(request)
     task_index = random.choice([0, 1, 2, 3, 4])
     try:
-        claim_list = C_result.objects.filter(finish__lte=5, id__gt=136)
+        claim_list = C_result.objects.filter(finish__lte=5, id__gt=136, is_variation=False)
         if len(claim_list) == 0:
             claim_list = C_result.objects.filter(finish=6)
         data = random.choice(claim_list)
