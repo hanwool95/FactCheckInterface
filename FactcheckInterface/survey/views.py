@@ -56,7 +56,7 @@ def claim_current(request, state):
             kw_number = 0
 
     number = check_user_and_get_number(request)
-    if number == 0:
+    if number == '0':
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
@@ -135,7 +135,7 @@ def claim_current(request, state):
 
 def all_current(request):
     number = check_user_and_get_number(request)
-    if number == 0:
+    if number == '0':
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
@@ -149,7 +149,7 @@ def all_current(request):
 
 def claim_detail(request, claim_id):
     number = check_user_and_get_number(request)
-    if number == 0:
+    if number == '0':
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
@@ -165,7 +165,7 @@ def claim_detail(request, claim_id):
 
 def claim_delete(request, claim_id):
     number = check_user_and_get_number(request)
-    if number == 0:
+    if number == '0':
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
@@ -182,7 +182,7 @@ def claim_delete(request, claim_id):
 
 def claim_update(request, claim_id):
     number = check_user_and_get_number(request)
-    if number == 0:
+    if number == '0':
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
@@ -236,7 +236,7 @@ def claim_update_result(request, claim_id):
 
 def making_claim(request):
     number = check_user_and_get_number(request)
-    if number == 0:
+    if number == '0':
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
@@ -249,7 +249,7 @@ def making_claim(request):
 
 def making_variation(request):
     number = check_user_and_get_number(request)
-    if number == 0:
+    if number == '0':
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
