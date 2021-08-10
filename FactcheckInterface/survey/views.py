@@ -56,6 +56,10 @@ def claim_current(request, state):
             kw_number = 0
 
     number = check_user_and_get_number(request)
+    if number == 0:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
     if state < 1:
         claim_list = C_result.objects.filter(user_id=number)
     elif state == 1:
@@ -131,6 +135,11 @@ def claim_current(request, state):
 
 def all_current(request):
     number = check_user_and_get_number(request)
+    if number == 0:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
     claim_list = C_result.objects.all()
     number_of_claim = len(C_result.objects.filter(is_variation=False))
     number_of_variation = len(C_result.objects.filter(is_variation=True))
@@ -140,6 +149,11 @@ def all_current(request):
 
 def claim_detail(request, claim_id):
     number = check_user_and_get_number(request)
+    if number == 0:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
     q = C_result.objects.get(id=claim_id)
 
     try:
@@ -151,6 +165,11 @@ def claim_detail(request, claim_id):
 
 def claim_delete(request, claim_id):
     number = check_user_and_get_number(request)
+    if number == 0:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
     q = C_result.objects.get(id=claim_id)
     if int(number) != q.user_id:
         return render(request, 'survey/detail.html', {
@@ -163,6 +182,11 @@ def claim_delete(request, claim_id):
 
 def claim_update(request, claim_id):
     number = check_user_and_get_number(request)
+    if number == 0:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
     q = C_result.objects.get(id=claim_id)
     if int(number) != q.user_id:
         return render(request, 'survey/detail.html', {
@@ -212,6 +236,12 @@ def claim_update_result(request, claim_id):
 
 def making_claim(request):
     number = check_user_and_get_number(request)
+    if number == 0:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
+
     reference_list = Reference_article.objects.filter(count__lte=1000)
     data = random.choice(reference_list)
 
@@ -219,6 +249,12 @@ def making_claim(request):
 
 def making_variation(request):
     number = check_user_and_get_number(request)
+    if number == 0:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
+
     task_index = random.choice([0, 1, 2, 3, 4])
     try:
         claim_list = C_result.objects.filter(finish__lte=5, id__gt=136, is_variation=False)
