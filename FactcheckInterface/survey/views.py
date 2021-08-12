@@ -27,6 +27,13 @@ def GetWeekFirstDate(sourceDate):
     targetDate = AddDays(temporaryDate, -weekDayCount)
     return targetDate
 
+def GetLastWeekFirstDate(sourceDate):
+    temporaryDate = datetime.datetime(sourceDate.year, sourceDate.month, sourceDate.day)
+    weekDayCount = temporaryDate.weekday()
+    targetDate = AddDays(temporaryDate, -weekDayCount)
+    targetDate = AddDays(targetDate, -weekDayCount)
+    return targetDate
+
 
 def check_user_and_get_number(request):
     user_name = request.user.get_username()
@@ -65,7 +72,13 @@ def admin_current(request):
         number_of_variation = len(C_result.objects.filter(user_id=user, is_variation=True))
         number_of_user = len(claim_list)
         first_date = GetWeekFirstDate(datetime.datetime.today())
+        last_date = GetLastWeekFirstDate(datetime.datetime.today())
         number_of_week = len(C_result.objects.filter(user_id=user, pub_date__gte=first_date))
+        number_of_lweek = len(C_result.objects.filter(user_id=user, pub_date__gte=last_date)) - number_of_week
+
+        today = datetime.date.today()
+        first_day = today.replace(day=1)
+        number_of_month = len(C_result.objects.filter(user_id=user, pub_date__gte=first_day))
 
         number_of_True = len(C_result.objects.filter(user_id=user, T_F='True'))
         number_of_False = len(C_result.objects.filter(user_id=user, T_F='False'))
@@ -83,6 +96,8 @@ def admin_current(request):
             variation = 0
             number = 0
             week = None
+            lweek = None
+            month = None
             true = None
             false = None
             nei = None
@@ -106,6 +121,8 @@ def admin_current(request):
         data.false_rate = rate_false
         data.nei_rate = rate_nei
         data.claim_rate = rate_claim
+        data.lweek = number_of_lweek
+        data.month = number_of_month
         globals()[user] = data
 
         information_list.append(globals()[user])

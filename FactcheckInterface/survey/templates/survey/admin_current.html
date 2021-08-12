@@ -30,6 +30,8 @@
           <th>거짓(비율)</th>
           <th>NEI(비율)</th>
           <th>금주 데이터</th>
+          <th>지난주 데이터</th>
+          <th>월간 데이터</th>
         <th><center>자세히</center></th>
       </tr>
     </thead>
@@ -43,6 +45,8 @@
           <td> {{data.false}}({{data.false_rate}})</td>
           <td> {{data.nei}}({{data.nei_rate}})</td>
           <td> {{data.week}}</td>
+          <td> {{data.lweek}}</td>
+          <td> {{data.month}}</td>
           <td>
               <form action="http://127.0.0.1:8000/survey/claim_current/3?kinds=user_id&kw={{data.id}}" method="post">
                   {% csrf_token %}
