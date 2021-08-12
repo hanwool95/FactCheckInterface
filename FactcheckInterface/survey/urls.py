@@ -6,6 +6,7 @@ app_name = 'survey'
 urlpatterns = [
     path('', views.index, name='index'),
     path('claim_current/<int:state>', views.claim_current, name='claim_current'),
+    path('admin_current/', views.admin_current, name='admin_current'),
     path('all_current', views.all_current, name='all_current'),
     path('making_claim', views.making_claim, name='making_claim'),
     path('claim_detail/<int:claim_id>', views.claim_detail, name='claim_detail'),

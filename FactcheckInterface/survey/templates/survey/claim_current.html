@@ -73,6 +73,14 @@
                         <button type="submit" >Variation 추가하기</button>
                     </form>
                 </div>
+            {% if admin_Flag == True %}
+                <div style="display: inline-block">
+                    <form action="{% url 'survey:admin_current' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" >관리자 전용</button>
+                    </form>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

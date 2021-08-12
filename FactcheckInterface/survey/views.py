@@ -7,11 +7,26 @@ from django.utils import timezone
 
 from .models import C_result, V_result, Reference_article
 
-from .task_explanation import task_explain_list
-
+from .task_explanation import admin_dict, admin_list
+print(admin_dict)
+print(admin_list)
 
 # Create your views here.
 # 장고 orm 조건문 출처 https://brownbears.tistory.com/63
+
+#출처: https://icodebroker.tistory.com/6852 [ICODEBROKER]
+import datetime
+
+def AddDays(sourceDate, count):
+    targetDate = sourceDate + datetime.timedelta(days = count)
+    return targetDate
+
+def GetWeekFirstDate(sourceDate):
+    temporaryDate = datetime.datetime(sourceDate.year, sourceDate.month, sourceDate.day)
+    weekDayCount = temporaryDate.weekday()
+    targetDate = AddDays(temporaryDate, -weekDayCount)
+    return targetDate
+
 
 def check_user_and_get_number(request):
     user_name = request.user.get_username()
@@ -20,8 +35,8 @@ def check_user_and_get_number(request):
         number = user_name[4:]
     return number
 
-def check_admin(request):
-    return request.user.get_username()[:5] == 'admin'
+def check_admin(number):
+    return number in admin_list
 
 def True_False_text_to_Boolean(text):
     Boolean = None
@@ -35,6 +50,71 @@ def index(request):
     number = check_user_and_get_number(request)
 
     return render(request, 'survey/index.html', {'user_id': number})
+
+def admin_current(request):
+    number = check_user_and_get_number(request)
+    if number not in admin_list:
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+    user_list = admin_dict[number]
+    information_list = []
+    for user in user_list:
+        claim_list = C_result.objects.filter(user_id=user)
+        number_of_claim = len(C_result.objects.filter(user_id=user, is_variation=False))
+        number_of_variation = len(C_result.objects.filter(user_id=user, is_variation=True))
+        number_of_user = len(claim_list)
+        first_date = GetWeekFirstDate(datetime.datetime.today())
+        number_of_week = len(C_result.objects.filter(user_id=user, pub_date__gte=first_date))
+
+        number_of_True = len(C_result.objects.filter(user_id=user, T_F='True'))
+        number_of_False = len(C_result.objects.filter(user_id=user, T_F='False'))
+        number_of_NEI = len(C_result.objects.filter(user_id=user, T_F='None'))
+
+        rate_true = round(number_of_True / number_of_user * 100, 2)
+        rate_false = round(number_of_False / number_of_user * 100, 2)
+        rate_nei = round(number_of_NEI / number_of_user * 100, 2)
+
+        rate_claim = round(number_of_claim / number_of_user * 100, 2)
+
+        class data_class:
+            id = 0
+            claim = 0
+            variation = 0
+            number = 0
+            week = None
+            true = None
+            false = None
+            nei = None
+            true_rate = None
+            false_rate = None
+            nei_rate = None
+            claim_rate = None
+
+            def __init__(self, value):
+                self.id = value
+
+        data = data_class(user)
+        data.claim = number_of_claim
+        data.variation = number_of_variation
+        data.number = number_of_user
+        data.week = number_of_week
+        data.true = number_of_True
+        data.false = number_of_False
+        data.nei = number_of_NEI
+        data.true_rate = rate_true
+        data.false_rate = rate_false
+        data.nei_rate = rate_nei
+        data.claim_rate = rate_claim
+        globals()[user] = data
+
+        information_list.append(globals()[user])
+
+    return render(request, 'survey/admin_current.html', {'information': information_list})
+
+
+
+
 
 def claim_current(request, state):
     """
@@ -60,6 +140,7 @@ def claim_current(request, state):
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
+    admin_Flag = check_admin(number)
     if state < 1:
         claim_list = C_result.objects.filter(user_id=number)
     elif state == 1:
@@ -131,7 +212,8 @@ def claim_current(request, state):
                                                          'number_of_claim': number_of_claim,
                                                          'number_of_variation': number_of_variation, 'state':state,
                                                          'rate_true':rate_true, 'rate_false':rate_false,
-                                                         'rate_nei':rate_nei, 'rate_claim': rate_claim})
+                                                         'rate_nei':rate_nei, 'rate_claim': rate_claim,
+                                                         'admin_Flag':admin_Flag})
 
 def all_current(request):
     number = check_user_and_get_number(request)

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Title</title>
+</head>
+<body>
+{% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'current.css' %}">
+<script src="{% static 'current.js' %}"></script>
+<br>
+<br>
+<form action="{% url 'survey:claim_current' 0 %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="돌아가기" class="btn btn-primary">
+</form>
+<br><br>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+          <th> user id </th>
+        <th>claim(비율)</th>
+        <th>variation</th>
+          <th>참(비율)</th>
+          <th>거짓(비율)</th>
+          <th>NEI(비율)</th>
+          <th>금주 데이터</th>
+        <th><center>자세히</center></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for data in information %}
+      <tr>
+          <td> user{{ data.id }}</td>
+        <td> {{ data.claim }}({{ data.claim_rate}})</td>
+        <td> {{data.variation}}</td>
+          <td> {{data.true}}({{data.true_rate}})</td>
+          <td> {{data.false}}({{data.false_rate}})</td>
+          <td> {{data.nei}}({{data.nei_rate}})</td>
+          <td> {{data.week}}</td>
+          <td>
+              <form action="http://127.0.0.1:8000/survey/claim_current/3?kinds=user_id&kw={{data.id}}" method="post">
+                  {% csrf_token %}
+                  <center><input type="submit" value="검색" class="btn btn-outline-secondary"></center>
+            </form>
+          </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+</body>
+</html>
