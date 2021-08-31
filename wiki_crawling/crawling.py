@@ -48,23 +48,27 @@ def get_wiki_page_return_info(keyword):
 def main_process(keyword):
     id, url, text, length = get_wiki_page_return_info(keyword)
     date = None
-    if length > 3000:
+    if length > 0:
         date = find_date(keyword)
-    return [id, url, keyword, text[:10], length, date]
+    #return [id, url, keyword, text[:10], length, date] 기록용
+    return [0, id, url, keyword, text[:10]]
 
-print(main_process('과학적 방법'))
+#print(main_process('과학적 방법'))          test용
 
 
-f = open('wiki.csv', 'w', newline='')
+f = open('good_article.csv', 'w', newline='')
 wr = csv.writer(f)
-wr.writerow(['id', 'url', 'keyword', 'text', 'length', 'date'])
-with open('kowiki-latest-all-titles-in-ns0', 'r') as f:
-    i = 0
+#wr.writerow(['id', 'url', 'keyword', 'text', 'length', 'date'])    기록용
+wr.writerow(['id', 'revid', 'url', 'title', 'text'])
+with open('good_article', 'r') as f:
+    i = 20
     for line in f:
         text = line[:-1]
         print(i)
         if wiki.page(text).exists():
-            wr.writerow(main_process(text))
+            process_list = main_process(text)
+            process_list[0] = i
+            wr.writerow(process_list)
         else:
             print(text + " failed")
         i += 1

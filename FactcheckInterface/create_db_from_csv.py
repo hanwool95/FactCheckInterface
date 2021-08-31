@@ -7,7 +7,7 @@ application = get_wsgi_application()
 
 from survey.models import Reference_article
 def get_data():
-    f = open('sample_wiki.csv', 'r', encoding='utf-8')
+    f = open('good_article.csv', 'r', encoding='utf-8')
     rdr = csv.reader(f)
     next(rdr)
     for i, line in enumerate(rdr):
