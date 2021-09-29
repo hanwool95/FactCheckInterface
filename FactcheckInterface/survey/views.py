@@ -31,7 +31,7 @@ def GetLastWeekFirstDate(sourceDate):
     temporaryDate = datetime.datetime(sourceDate.year, sourceDate.month, sourceDate.day)
     weekDayCount = temporaryDate.weekday()
     targetDate = AddDays(temporaryDate, -weekDayCount)
-    targetDate = AddDays(targetDate, -weekDayCount)
+    targetDate = AddDays(targetDate, -7)
     return targetDate
 
 
@@ -224,6 +224,7 @@ def claim_current(request, state):
         rate_nei = 0
         rate_claim = 0
 
+    claim_list = list(reversed(claim_list))
 
     return render(request, 'survey/claim_current.html', {'user_id': number, 'claim_list':claim_list,
                                                          'number_of_claim': number_of_claim,
@@ -435,7 +436,8 @@ def variation_results(request, claim_id):
         return render(request, 'survey/detail.html', {
             'error_message': "unaccepted.",
         })
-
+    if request.POST['action'] == '저장 후 베리에이션 추가 제작':
+        return HttpResponseRedirect(reverse('survey:making_variation'))
     return HttpResponseRedirect(reverse('survey:claim_current', args=(0,)))
 """
 def detail(request, group_id, user_id, current_num):

@@ -3,6 +3,11 @@ $('#claim_button').on('click', function() {
     $('#claim').val('실험중');
 })
 
+$('#continue').on('click', function() {
+    console.log('click')
+    $('#continue_token').val('true');
+})
+
 // 출처: https://all-record.tistory.com/172 [세상의 모든 기록]
 function changeValue(target, button) {
     console.log('test2');
