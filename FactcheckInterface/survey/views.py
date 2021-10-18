@@ -176,7 +176,8 @@ def claim_current(request, state):
                     'error_message': "unaccepted.",
                 })
         else:
-            claim_list = C_result.objects.all()
+            # claim_list = C_result.objects.all()
+             claim_list = []
     elif state == 4:
         if kw:
             try:
@@ -189,7 +190,8 @@ def claim_current(request, state):
                     'error_message': "unaccepted.",
                 })
         else:
-            claim_list = C_result.objects.filter(is_variation=True)
+            #claim_list = C_result.objects.filter(is_variation=True)
+            claim_list = []
     else:
         if kw:
             try:
@@ -202,7 +204,8 @@ def claim_current(request, state):
                     'error_message': "unaccepted.",
                 })
         else:
-            claim_list = C_result.objects.filter(is_variation=False)
+            #claim_list = C_result.objects.filter(is_variation=False)
+            claim_list = []
     number_of_claim = len(C_result.objects.filter(user_id=number, is_variation=False))
     number_of_variation = len(C_result.objects.filter(user_id=number, is_variation=True))
 
