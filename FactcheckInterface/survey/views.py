@@ -5,7 +5,7 @@ from django.template import loader
 from django.urls import reverse
 from django.utils import timezone
 
-from .models import C_result, V_result, Reference_article
+from .models import C_result, V_result, Reference_article, Paraphrased
 
 from .task_explanation import admin_dict, admin_list
 print(admin_dict)
@@ -391,6 +391,122 @@ def making_variation(request):
                                                             'e4':evidence4, 'title4': title4,
                                                             'e5':evidence5, 'title5': title5, 'T_F':T_F,
                                                             'task':task_index, 'more_than_two':more_than_two})
+
+def making_paraphrased(request):
+    number = check_user_and_get_number(request)
+    if number == '0':
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+
+    try:
+        claim_list = Paraphrased.objects.filter(finish=0)
+        data = random.choice(claim_list)
+        q = Paraphrased.objects.get(claim_id=data.claim_id)
+        q.finish += 1
+        q.save()
+    except:
+        print('error')
+        return render(request, 'survey/detail.html', {
+            'error_message': "unaccepted.",
+        })
+    claim = data.claim
+    claim_id = data.id
+    title1 = data.title1
+    evidence1 = data.evidence1
+    title2 = data.title2
+    evidence2 = data.evidence2
+    title3 = data.title3
+    evidence3 = data.evidence3
+    title4 = data.title4
+    evidence4 = data.evidence4
+    title5 = data.title5
+    evidence5 = data.evidence5
+    T_F = data.T_F
+    more_than_two = data.is_more_than_two
+    paraphrased1 = data.paraphrased1
+    paraphrased2 = data.paraphrased2
+    paraphrased3 = data.paraphrased3
+    paraphrased4 = data.paraphrased4
+    paraphrased5 = data.paraphrased5
+
+    return render(request, 'survey/making_paraphrased.html', {'user_id': number, 'claim': claim,
+                                                            'claim_id':claim_id, 'e1':evidence1, 'title1': title1,
+                                                            'e2':evidence2, 'title2': title2,
+                                                            'e3':evidence3, 'title3': title3,
+                                                            'e4':evidence4, 'title4': title4,
+                                                            'e5':evidence5, 'title5': title5, 'T_F':T_F,
+                                                            'more_than_two':more_than_two,
+                                                              'p1': paraphrased1,
+                                                              'p2': paraphrased2,
+                                                              'p3': paraphrased3,
+                                                              'p4': paraphrased4,
+                                                              'p5': paraphrased5,
+                                                              })
+
+def paraphrased_results(request, claim_id):
+    number = check_user_and_get_number(request)
+    q = Paraphrased.objects.get(id=claim_id)
+    q.finish += 1
+    q.save()
+
+    check_list = request.POST.getlist('color')
+
+    if 'p1' in check_list:
+        C_result(user_id=number, claim=q.paraphrased1,
+                 title1=request.POST['title1'], evidence1=request.POST['evidence1'],
+                 title2=request.POST['title2'], evidence2=request.POST['evidence2'],
+                 title3=request.POST['title3'], evidence3=request.POST['evidence3'],
+                 title4=request.POST['title4'], evidence4=request.POST['evidence4'],
+                 title5=request.POST['title5'], evidence5=request.POST['evidence5'],
+                 T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
+                 original_claim_id=claim_id,
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
+    if 'p2' in check_list:
+        C_result(user_id=number, claim=q.paraphrased2,
+                 title1=request.POST['title1'], evidence1=request.POST['evidence1'],
+                 title2=request.POST['title2'], evidence2=request.POST['evidence2'],
+                 title3=request.POST['title3'], evidence3=request.POST['evidence3'],
+                 title4=request.POST['title4'], evidence4=request.POST['evidence4'],
+                 title5=request.POST['title5'], evidence5=request.POST['evidence5'],
+                 T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
+                 original_claim_id=claim_id,
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
+    if 'p3' in check_list:
+        C_result(user_id=number, claim=q.paraphrased3,
+                 title1=request.POST['title1'], evidence1=request.POST['evidence1'],
+                 title2=request.POST['title2'], evidence2=request.POST['evidence2'],
+                 title3=request.POST['title3'], evidence3=request.POST['evidence3'],
+                 title4=request.POST['title4'], evidence4=request.POST['evidence4'],
+                 title5=request.POST['title5'], evidence5=request.POST['evidence5'],
+                 T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
+                 original_claim_id=claim_id,
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
+    if 'p4' in check_list:
+        C_result(user_id=number, claim=q.paraphrased4,
+                 title1=request.POST['title1'], evidence1=request.POST['evidence1'],
+                 title2=request.POST['title2'], evidence2=request.POST['evidence2'],
+                 title3=request.POST['title3'], evidence3=request.POST['evidence3'],
+                 title4=request.POST['title4'], evidence4=request.POST['evidence4'],
+                 title5=request.POST['title5'], evidence5=request.POST['evidence5'],
+                 T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
+                 original_claim_id=claim_id,
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
+    if 'p5' in check_list:
+        C_result(user_id=number, claim=q.paraphrased5,
+                 title1=request.POST['title1'], evidence1=request.POST['evidence1'],
+                 title2=request.POST['title2'], evidence2=request.POST['evidence2'],
+                 title3=request.POST['title3'], evidence3=request.POST['evidence3'],
+                 title4=request.POST['title4'], evidence4=request.POST['evidence4'],
+                 title5=request.POST['title5'], evidence5=request.POST['evidence5'],
+                 T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
+                 original_claim_id=claim_id,
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
+
+
+    if request.POST['action'] == '저장 후 추가 제작':
+        return HttpResponseRedirect(reverse('survey:making_paraphrased'))
+    return HttpResponseRedirect(reverse('survey:claim_current', args=(0,)))
 
 def claim_results(request, reference_id):
     number = check_user_and_get_number(request)

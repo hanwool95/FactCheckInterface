@@ -28,6 +28,28 @@ class C_result(models.Model):
     reference_id = models.IntegerField(default=0)
     is_more_than_two = models.BooleanField(default=False)
 
+class Paraphrased(models.Model):
+    claim_id = models.IntegerField(default=0)
+    user_id = models.IntegerField(default=0)
+    claim = models.CharField(max_length=400, default="")
+    title1 = models.CharField(max_length=400, default="")
+    evidence1 = models.CharField(max_length=400, default="")
+    title2 = models.CharField(max_length=400, default="")
+    evidence2 = models.CharField(max_length=400, default="")
+    title3 = models.CharField(max_length=400, default="")
+    evidence3 = models.CharField(max_length=400, default="")
+    title4 = models.CharField(max_length=400, default="")
+    evidence4 = models.CharField(max_length=400, default="")
+    title5 = models.CharField(max_length=400, default="")
+    evidence5 = models.CharField(max_length=400, default="")
+    T_F = models.CharField(max_length=200)
+    is_more_than_two = models.BooleanField(default=False)
+    paraphrased1 = models.CharField(max_length=400, default="")
+    paraphrased2 = models.CharField(max_length=400, default="")
+    paraphrased3 = models.CharField(max_length=400, default="")
+    paraphrased4 = models.CharField(max_length=400, default="")
+    paraphrased5 = models.CharField(max_length=400, default="")
+    finish = models.IntegerField(default=0)
 
 class V_result(models.Model):
     user_id = models.IntegerField(default=0)

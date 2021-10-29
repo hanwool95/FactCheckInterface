@@ -165,6 +165,10 @@
         {% csrf_token %}
         <button type="submit" class="btn btn-lg btn-primary">Variation 추가하기</button>
   </form><br>
+  <form action="{% url 'survey:making_paraphrased' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-lg btn-primary">Paraphrase 추가하기</button>
+  </form>
 
 </div>
 

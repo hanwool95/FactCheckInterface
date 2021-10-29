@@ -15,5 +15,7 @@ urlpatterns = [
     path('claim_update_result/<int:claim_id>', views.claim_update_result, name='claim_update_result'),
     path('claim_results/<int:reference_id>', views.claim_results, name='claim_results'),
     path('making_variation', views.making_variation, name='making_variation'),
+    path('making_paraphrased', views.making_paraphrased, name='making_paraphrased'),
     path('variation_results/<int:claim_id>/', views.variation_results, name='variation_results'),
+    path('paraphrased_results/<int:claim_id>/', views.paraphrased_results, name='paraphrased_results'),
 ]

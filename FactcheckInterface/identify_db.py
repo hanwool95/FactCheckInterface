@@ -21,7 +21,7 @@ print(len(Result.objects.filter(T_F='True')))
 
 
 ###### 주의##################3
-from survey.models import C_result
-C_result.objects.all().delete()
+from survey.models import Paraphrased
+Paraphrased.objects.all().delete()
 
 ################주의###################
