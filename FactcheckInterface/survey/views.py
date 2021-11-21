@@ -360,7 +360,7 @@ def making_variation(request):
 
     task_index = random.choice([0, 1, 2, 3, 4])
     try:
-        claim_list = C_result.objects.filter(finish__lte=5, id__gt=136, is_variation=False)
+        claim_list = C_result.objects.filter(finish__lte=5, id__gt=136, is_variation=False, mark=0)
         if len(claim_list) == 0:
             claim_list = C_result.objects.filter(finish=6)
         data = random.choice(claim_list)
@@ -461,7 +461,7 @@ def paraphrased_results(request, claim_id):
                  title5=request.POST['title5'], evidence5=request.POST['evidence5'],
                  T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
                  original_claim_id=claim_id,
-                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two']), mark=1).save()
     if 'p2' in check_list:
         C_result(user_id=number, claim=q.paraphrased2,
                  title1=request.POST['title1'], evidence1=request.POST['evidence1'],
@@ -471,7 +471,7 @@ def paraphrased_results(request, claim_id):
                  title5=request.POST['title5'], evidence5=request.POST['evidence5'],
                  T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
                  original_claim_id=claim_id,
-                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two']), mark=1).save()
     if 'p3' in check_list:
         C_result(user_id=number, claim=q.paraphrased3,
                  title1=request.POST['title1'], evidence1=request.POST['evidence1'],
@@ -481,7 +481,7 @@ def paraphrased_results(request, claim_id):
                  title5=request.POST['title5'], evidence5=request.POST['evidence5'],
                  T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
                  original_claim_id=claim_id,
-                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two']), mark=1).save()
     if 'p4' in check_list:
         C_result(user_id=number, claim=q.paraphrased4,
                  title1=request.POST['title1'], evidence1=request.POST['evidence1'],
@@ -491,7 +491,7 @@ def paraphrased_results(request, claim_id):
                  title5=request.POST['title5'], evidence5=request.POST['evidence5'],
                  T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
                  original_claim_id=claim_id,
-                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two']), mark=1).save()
     if 'p5' in check_list:
         C_result(user_id=number, claim=q.paraphrased5,
                  title1=request.POST['title1'], evidence1=request.POST['evidence1'],
@@ -501,7 +501,7 @@ def paraphrased_results(request, claim_id):
                  title5=request.POST['title5'], evidence5=request.POST['evidence5'],
                  T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
                  original_claim_id=claim_id,
-                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two']), mark=1).save()
 
 
     if request.POST['action'] == '저장 후 추가 제작':
@@ -510,26 +510,18 @@ def paraphrased_results(request, claim_id):
 
 def claim_results(request, reference_id):
     number = check_user_and_get_number(request)
-
-    try:
-
-        C_result(user_id=number, claim=request.POST['claim'],
-                 title1=request.POST['title1'], evidence1=request.POST['evidence1'],
-                 title2=request.POST['title2'], evidence2=request.POST['evidence2'],
-                 title3=request.POST['title3'], evidence3=request.POST['evidence3'],
-                 title4=request.POST['title4'], evidence4=request.POST['evidence4'],
-                 title5=request.POST['title5'], evidence5=request.POST['evidence5'],
-                 T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=False, original_claim_id=0,
-                 reference_id=reference_id,
-                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
-        q = Reference_article.objects.get(reference_id=reference_id)
-        q.count += 1
-        q.save()
-    except:
-        print('error')
-        return render(request, 'survey/detail.html', {
-            'error_message': "unaccepted.",
-        })
+    C_result(user_id=number, claim=request.POST['claim'],
+             title1=request.POST['title1'], evidence1=request.POST['evidence1'],
+             title2=request.POST['title2'], evidence2=request.POST['evidence2'],
+             title3=request.POST['title3'], evidence3=request.POST['evidence3'],
+             title4=request.POST['title4'], evidence4=request.POST['evidence4'],
+             title5=request.POST['title5'], evidence5=request.POST['evidence5'],
+             T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=False, original_claim_id=0,
+             reference_id=reference_id,
+             is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two']), mark=0).save()
+    q = Reference_article.objects.get(reference_id=reference_id)
+    q.count += 1
+    q.save()
 
     return HttpResponseRedirect(reverse('survey:claim_current', args=(0,)))
 
@@ -546,7 +538,7 @@ def variation_results(request, claim_id):
                  title5=request.POST['title5'], evidence5=request.POST['evidence5'],
                  T_F=request.POST['T_F'], pub_date=timezone.now(), finish=0, is_variation=True,
                  original_claim_id=claim_id,
-                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two'])).save()
+                 is_more_than_two=True_False_text_to_Boolean(request.POST['more_than_two']), mark=0).save()
         q = C_result.objects.get(id=claim_id)
         q.finish += 1
         q.save()

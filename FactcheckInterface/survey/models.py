@@ -27,6 +27,7 @@ class C_result(models.Model):
     original_claim_id = models.IntegerField(default=0)
     reference_id = models.IntegerField(default=0)
     is_more_than_two = models.BooleanField(default=False)
+    mark = models.IntegerField(default=0)
 
 class Paraphrased(models.Model):
     claim_id = models.IntegerField(default=0)
